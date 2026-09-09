@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { Header } from "../../components/header/header";
-import { Footer } from "../../components/footer/footer";
-import { Catalogo } from '../catalogo/catalogo';
+import { RouterLink } from '@angular/router';
+import { Footer } from '../../components/footer/footer';
+import { Header } from '../../components/header/header';
+import { Newsletter } from '../../components/newsletter/newsletter';
+import { TopBar } from '../../components/top-bar/top-bar';
 
 @Component({
-  imports: [Header, Footer, Catalogo],
+  imports: [RouterLink, Header, Footer, Newsletter, TopBar],
   selector: 'app-pagina-inicial',
   styleUrl: './pagina-inicial.css',
   templateUrl: './pagina-inicial.html',

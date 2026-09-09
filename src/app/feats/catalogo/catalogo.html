@@ -1,1 +1,61 @@
-<p>catalogo works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+<main class="catalogo-page">
+    <div class="breadcrumbs">Início <span>›</span> Catálogo</div>
+    <h1>Catálogo</h1>
+    <p class="resultados">
+        128 produtos encontrados <span>Ordenar por: <b>Mais relevantes</b></span>
+    </p>
+    <div class="catalogo-layout">
+        <aside class="filtros">
+            <div class="filter-title">
+                <h2>Filtros</h2>
+                <button type="button">Limpar filtros</button>
+            </div>
+            <section>
+                <h3>Categorias</h3>
+                <label><input type="checkbox" /> Eletrônicos</label
+                ><label><input type="checkbox" /> Celulares</label
+                ><label><input type="checkbox" /> Informática</label
+                ><label><input type="checkbox" /> Games</label
+                ><label><input type="checkbox" /> Moda</label>
+            </section>
+            <section>
+                <h3>Preço</h3>
+                <div class="range"><span></span></div>
+                <div class="price-inputs"><input value="R$ 0" /><input value="R$ 5.000" /></div>
+            </section>
+            <section>
+                <h3>Marca</h3>
+                <label><input type="checkbox" /> Samsung</label
+                ><label><input type="checkbox" /> Apple</label
+                ><label><input type="checkbox" /> Xiaomi</label
+                ><label><input type="checkbox" /> Sony</label>
+            </section>
+            <section>
+                <h3>Disponibilidade</h3>
+                <label><input type="checkbox" /> Em estoque</label
+                ><label><input type="checkbox" /> Frete grátis</label>
+            </section>
+            <button class="filter-button" type="button">APLICAR FILTROS</button>
+        </aside>
+        <section class="catalogo-produtos">
+            <div class="grid">
+                @for (produto of produtos; track $index) {
+                    <article class="card" routerLink="/detalhes-produto" tabindex="0">
+                        <img [src]="'/' + produto[0]" [alt]="produto[1]" />
+                        <h2>{{ produto[1] }}</h2>
+                        <strong>{{ produto[2] }}</strong
+                        ><button type="button" aria-label="Adicionar ao carrinho">🛒</button>
+                    </article>
+                }
+            </div>
+            <nav class="pagination" aria-label="Paginação">
+                <button>‹</button><button class="active">1</button><button>2</button
+                ><button>3</button><span>…</span><button>8</button><button>›</button>
+            </nav>
+        </section>
+    </div>
+</main>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

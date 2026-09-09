@@ -1,72 +1,20 @@
- <header class="header">
-
-    
-    <div class="logo">
-      <div class="logo-icon">
-        <img src="../../../../public/logo.jpeg" alt="Logo">
-      </div>
-  
-      <span>Click Compras</span>
-    </div>
-  
-  
-    
-    <button class="categorias">
-      <i class="fa-solid fa-bars"></i>
-  
-      <span>Categorias</span>
-  
-      <i class="fa-solid fa-chevron-down arrow"></i>
-    </button>
-  
-  
-    
-    <div class="search-container">
-  
-      <i class="fa-solid fa-magnifying-glass search-icon"></i>
-  
-      <input
-        type="text"
-        placeholder="Buscar produtos, marcas e muito mais..."
-      />
-  
-      <button class="search-button">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-  
-    </div>
-  
-  
-    
-    <div class="user">
-  
-      <i class="fa-regular fa-user user-icon"></i>
-  
-      <div class="user-text">
-        <small>Olá, faça seu login</small>
-        <strong>Conta</strong>
-      </div>
-  
-    </div>
-  
-  
-    
-    <div class="cart">
-  
-      <div class="cart-icon">
-  
-        <i class="fa-solid fa-cart-shopping"></i>
-  
-        <span class="cart-count">0</span>
-  
-      </div>
-  
-      <div class="cart-text">
-        <small>Meu carrinho</small>
-        <strong>R$ 1.849,90</strong>
-      </div>
-  
-    </div>
-  
-  </header> 
-
+<header class="header">
+    <a class="logo" href="#inicio" aria-label="Click Compras - início">
+        <span class="logo-icon"><img src="/logoSemfundo.png" alt="" /></span>
+    </a>
+    <label class="search-container" aria-label="Buscar produtos">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input class="Buscar" type="search" placeholder="Buscar produtos, marcas e muito mais..." />
+        <button class="search-button" type="button" aria-label="Buscar">
+            <span class="search-button-icon" aria-hidden="true"></span>
+        </button>
+    </label>
+    <a class="user" href="#conta"
+        ><span class="user-icon" aria-hidden="true">♙</span
+        ><span class="user-text"><small>Olá, faça seu login</small><strong>Conta</strong></span></a
+    >
+    <a class="cart" href="#carrinho"
+        ><span class="cart-icon" aria-hidden="true">🛒<span class="cart-count">0</span></span
+        ><span class="cart-text"><small>Meu carrinho</small><strong>R$ 1.849,90</strong></span></a
+    >
+</header>

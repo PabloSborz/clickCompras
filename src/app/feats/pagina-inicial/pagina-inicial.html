@@ -1,331 +1,85 @@
-
-<div class="top-bar">
-  <div class="top-content">
-
-    <span>🚚 Frete grátis em compras selecionadas</span>
-
-    <div class="top-links">
-      <span>Ajuda</span>
-      <span>Meus pedidos</span>
-    </div>
-
-  </div>
-</div>
-
+<app-top-bar></app-top-bar>
 
 <app-header></app-header>
 
-<section class="banner">
-
-  <div class="banner-content">
-
-    <span class="offer-tag">
-      Ofertas imperdíveis
-    </span>
-
-    <h1>
-      As melhores ofertas com entrega rápida!
-    </h1>
-
-    <p>
-      Encontre produtos incríveis com preços especiais e receba
-      tudo com rapidez e segurança.
-    </p>
-
-    <button>
-      CONFERIR OFERTAS →
-    </button>
-
-  </div>
-
-
-  <div class="banner-image">
-
-    <div class="device device-one">
-      <img src="../../assets/img/caixa-de-som.png" alt="caixa-de-som">
-    </div>
-
-    <div class="device device-two">
-      <img src="../../assets/img/celular.png" alt="celular">
-    </div>
-
-    <div class="device device-three">
-      <img src="../../assets/img/fone.png" alt="fone">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= BENEFÍCIOS ================= -->
-
-<section class="benefits">
-
-  <div class="benefit">
-    <span>🚚</span>
-
-    <div>
-      <strong>Frete Grátis</strong>
-      <small>Para compras selecionadas</small>
-    </div>
-  </div>
-
-
-  <div class="benefit">
-    <span>🛡</span>
-
-    <div>
-      <strong>Compra Segura</strong>
-      <small>Proteção em todos os pedidos</small>
-    </div>
-  </div>
-
-
-  <div class="benefit">
-    <span>💳</span>
-
-    <div>
-      <strong>Parcele em até 12x</strong>
-      <small>Facilidade para você comprar</small>
-    </div>
-  </div>
-
-</section>
-
-
-<!-- ================= CATEGORIAS ================= -->
-
-<section class="container">
-
-  <h2>Navegue por Categorias</h2>
-
-
-  <div class="categories">
-
-    <div class="category">
-      <div>💻</div>
-      <span>Eletrônicos</span>
-    </div>
-
-
-    <div class="category">
-      <div>📱</div>
-      <span>Celulares</span>
-    </div>
-
-
-    <div class="category">
-      <div>🎮</div>
-      <span>Games</span>
-    </div>
-
-
-    <div class="category">
-      <div>📊</div>
-      <span>Informática</span>
-    </div>
-
-
-    <div class="category">
-      <div>👕</div>
-      <span>Moda</span>
-    </div>
-
-
-    <div class="category">
-      <div>🏆</div>
-      <span>Esportes</span>
-    </div>
-
-
-    <div class="category">
-      <div>🏠</div>
-      <span>Casa</span>
-    </div>
-
-
-    <div class="category">
-      <div>🔧</div>
-      <span>Ferramentas</span>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= PRODUTOS ================= -->
-
-<section class="products-section">
-
-  <div class="products-area">
-
-    <div class="section-title">
-
-      <div>
-        <h2>Ofertas em Destaque</h2>
-        <p>Produtos selecionados para você</p>
-      </div>
-
-      <a href="#catalogo/">Ver todos</a>
-
-    </div>
-
-
-    <div class="products">
-
-      <!-- @for (produto of produtos; track produto.nome) {
-
-        <div class="product-card">
-
-          <div class="product-image">
-
-            <img
-              [src]="produto.imagem"
-              [alt]="produto.nome"
-            >
-
-          </div>
-
-
-          <h3>{{ produto.nome }}</h3>
-
-          <span class="old-price">
-            {{ produto.precoAntigo }}
-          </span>
-
-          <strong class="price">
-            {{ produto.preco }}
-          </strong>
-
-
-          <button class="add-cart">
-            🛒
-          </button>
-
+<main id="inicio">
+    <section class="hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Produtos imperdíveis</span>
+            <h1>As melhores ofertas com entrega rápida!</h1>
+            <p>
+                Encontre produtos incríveis com preços especiais e receba tudo com rapidez e
+                segurança.
+            </p>
+            <a class="hero-link" routerLink="/catalogo">CONFERIR PRODUTOS <span>→</span></a>
         </div>
+        <div class="hero-products" aria-label="Produtos em destaque">
+            <figure class="hero-card speaker">
+                <img src="/controle2.png" alt="Controle gamer" />
+            </figure>
+            <figure class="hero-card phone"><img src="/celular2.png" alt="Celular" /></figure>
+            <figure class="hero-card headset"><img src="/notebook2.png" alt="Notebook" /></figure>
+        </div>
+    </section>
 
-      } -->
+    <section class="benefits">
+        <div class="ticker-track">
+            <div class="ticker-set"><article><span>🚚</span><div><strong>Frete grátis</strong><small>Para compras selecionadas</small></div></article><article><span>🛡️</span><div><strong>Compra segura</strong><small>Proteção em todos os pedidos</small></div></article><article><span>💳</span><div><strong>Parcele em até 12x</strong><small>Facilidade para você comprar</small></div></article></div>
+            <div class="ticker-set" aria-hidden="true"><article><span>🚚</span><div><strong>Frete grátis</strong><small>Para compras selecionadas</small></div></article><article><span>🛡️</span><div><strong>Compra segura</strong><small>Proteção em todos os pedidos</small></div></article><article><span>💳</span><div><strong>Parcele em até 12x</strong><small>Facilidade para você comprar</small></div></article></div>
+        </div>
+    </section>
 
-    </div>
+    <section class="content-section categories-section">
+        <h2>Navegue por categorias</h2>
+        <div class="categories">
+            <a href="#catalogo"><b>💻</b>Eletrônicos</a><a href="#catalogo"><b>📱</b>Celulares</a
+            ><a href="#catalogo"><b>🎮</b>Games</a>
+        </div>
+    </section>
 
-  </div>
+    <section class="content-section offers destaque" id="catalogo">
+        <div class="section-heading">
+            <div class="Destaque">
+                <h2>Produtos em destaque</h2>
+                <p>Produtos selecionados para você</p>
+            </div>
+            <a routerLink="/catalogo">Ver todos →</a>
+        </div>
+        <div class="product-grid">
+            <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
+                <img src="/controle2.png" alt="Controle gamer" />
+                <h3>Fone de ouvido Bluetooth Premium</h3>
+                <del>R$ 299,90</del><strong>R$ 179,90</strong
+                ><button aria-label="Adicionar fone ao carrinho">🛒</button>
+            </article>
+            <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
+                <img src="/notebook2.png" alt="Notebook" />
+                <h3>Smartwatch com monitor de saúde</h3>
+                <del>R$ 499,90</del><strong>R$ 359,90</strong
+                ><button aria-label="Adicionar relógio ao carrinho">🛒</button>
+            </article>
+            <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
+                <img src="/celular2.png" alt="Celular" />
+                <h3>Smartphone com tela de alta definição</h3>
+                <del>R$ 1.999,90</del><strong>R$ 1.499,90</strong
+                ><button aria-label="Adicionar celular ao carrinho">🛒</button>
+            </article>
+            <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
+                <img src="/controle2.png" alt="Controle gamer" />
+                <h3>Caixa de som Bluetooth portátil</h3>
+                <del>R$ 249,90</del><strong>R$ 179,90</strong
+                ><button aria-label="Adicionar caixa de som ao carrinho">🛒</button>
+            </article>
+        </div>
+    </section>
 
+    <section class="info-strip">
+        <div class="ticker-track">
+            <div class="ticker-set"><article><span>🚚</span><div><strong>Frete grátis</strong><small>Consulte condições</small></div></article><article><span>💳</span><div><strong>Pagamento seguro</strong><small>Compre com tranquilidade</small></div></article><article><span>🔒</span><div><strong>Ambiente 100% seguro</strong><small>Seus dados protegidos</small></div></article></div>
+            <div class="ticker-set" aria-hidden="true"><article><span>🚚</span><div><strong>Frete grátis</strong><small>Consulte condições</small></div></article><article><span>💳</span><div><strong>Pagamento seguro</strong><small>Compre com tranquilidade</small></div></article><article><span>🔒</span><div><strong>Ambiente 100% seguro</strong><small>Seus dados protegidos</small></div></article></div>
+        </div>
+    </section>
 
-  <!-- PROMOÇÕES -->
-
-  <aside class="promotions">
-
-    <div class="promo-card">
-
-      <span>OFERTA ESPECIAL</span>
-
-      <h3>
-        Promoção de Eletrônicos
-      </h3>
-
-      <p>
-        Aproveite descontos exclusivos.
-      </p>
-
-      <button>
-        Conferir
-      </button>
-
-    </div>
-
-
-    <div class="promo-card light">
-
-      <span>Últimas ofertas</span>
-
-      <div class="promo-icons">
-        <div>🎧</div>
-        <div>💻</div>
-        <div>📱</div>
-      </div>
-
-    </div>
-
-  </aside>
-
-</section>
-
-
-<!-- ================= INFORMAÇÕES ================= -->
-
-<section class="info-bar">
-
-  <div>
-    <span>🚚</span>
-
-    <div>
-      <strong>Frete Grátis</strong>
-      <small>Consulte condições</small>
-    </div>
-  </div>
-
-
-  <div>
-    <span>💳</span>
-
-    <div>
-      <strong>Pagamento Seguro</strong>
-      <small>Compre com tranquilidade</small>
-    </div>
-  </div>
-
-
-  <div>
-    <span>🔒</span>
-
-    <div>
-      <strong>Ambiente 100% Seguro</strong>
-      <small>Seus dados protegidos</small>
-    </div>
-  </div>
-
-</section>
-
-
-<!-- ================= NEWSLETTER ================= -->
-
-<section class="newsletter">
-
-  <div>
-
-    <h3>
-      Receba ofertas exclusivas!
-    </h3>
-
-    <p>
-      Cadastre seu e-mail e fique por dentro das novidades.
-    </p>
-
-  </div>
-
-
-  <div class="newsletter-form">
-
-    <input
-      type="email"
-      placeholder="Digite seu e-mail"
-    >
-
-    <button>
-      CADASTRAR
-    </button>
-
-  </div>
-
-</section>
-
-
-
-
-
-
-
-
+    <app-newsletter></app-newsletter>
+</main>
 <app-footer></app-footer>
