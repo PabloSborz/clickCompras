@@ -1,20 +1,42 @@
+<!-- Cabeçalho principal com logo, busca, conta e carrinho. -->
 <header class="header">
     <a class="logo" href="#inicio" aria-label="Click Compras - início">
-        <span class="logo-icon"><img src="/logoSemfundo.png" alt="" /></span>
+        <span class="logo-icon">
+            <img src="/logoSemfundo.png" alt="Logo" />
+        </span>
     </a>
+
+    <!-- Campo central de busca de produtos. -->
     <label class="search-container" aria-label="Buscar produtos">
         <span class="search-icon" aria-hidden="true"></span>
-        <input class="Buscar" type="search" placeholder="Buscar produtos, marcas e muito mais..." />
+        <input
+            class="search-input"
+            type="search"
+            placeholder="Buscar produtos, marcas e muito mais..."
+        />
         <button class="search-button" type="button" aria-label="Buscar">
             <span class="search-button-icon" aria-hidden="true"></span>
         </button>
     </label>
-    <a class="user" href="#conta"
-        ><span class="user-icon" aria-hidden="true">♙</span
-        ><span class="user-text"><small>Olá, faça seu login</small><strong>Conta</strong></span></a
-    >
-    <a class="cart" href="#carrinho"
-        ><span class="cart-icon" aria-hidden="true">🛒<span class="cart-count">0</span></span
-        ><span class="cart-text"><small>Meu carrinho</small><strong>R$ 1.849,90</strong></span></a
-    >
+
+    <!-- Atalho para conta do usuário. -->
+    <a class="user" href="#conta">
+        <span class="user-icon" aria-hidden="true">♙</span>
+        <span class="user-text">
+            <small>Olá, faça seu login</small>
+            <strong>Conta</strong>
+        </span>
+    </a>
+
+    <!-- Atalho para carrinho com contador. -->
+    <a class="cart" href="#carrinho">
+        <span class="cart-icon" aria-hidden="true">
+            🛒
+            <span class="cart-count">0</span>
+        </span>
+        <span class="cart-text">
+            <small>Meu carrinho</small>
+            <strong>R$ 1.849,90</strong>
+        </span>
+    </a>
 </header>
