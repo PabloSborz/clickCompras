@@ -1,1 +1,26 @@
-.top-bar { background: #1e1955; color: #fff; font-size: 10px; }.top-bar > div { max-width: 1320px; margin: auto; padding: 7px 28px; display: flex; justify-content: space-between; }
+/* Faixa superior com mensagens rápidas e links de apoio. */
+.top-bar {
+    background: var(--color-brand-dark);
+    color: #fff;
+    font-size: 10px;
+}
+
+/* Conteúdo centralizado no mesmo limite visual do header. */
+.top-bar > div {
+    max-width: var(--content-width);
+    margin: auto;
+    padding: 7px 28px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* No mobile fica apenas a mensagem principal de frete. */
+@media (max-width: 600px) {
+    .top-bar > div {
+        padding: 7px 20px;
+    }
+
+    .top-bar > div span:last-child {
+        display: none;
+    }
+}

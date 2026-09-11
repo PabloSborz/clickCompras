@@ -1,4 +1,251 @@
-:host { display: block; background: #f7f7fa; color: #27243a; }.catalogo-page { max-width: 1320px; margin: auto; padding: 19px 28px 48px; }.breadcrumbs { color: #8d8a9a; font-size: 10px; }.breadcrumbs span { margin: 0 5px; }.catalogo-page h1 { margin: 10px 0 4px; font-size: 22px; }.resultados { margin: 0 0 18px; display: flex; justify-content: space-between; color: #686477; font-size: 10px; }.resultados span { color: #77738e; }.resultados b { color: #312a81; }.catalogo-layout { display: grid; grid-template-columns: 210px 1fr; gap: 18px; }.filtros { align-self: start; padding: 15px; border: 1px solid #e2e1e9; border-radius: 7px; background: #fff; }.filter-title { display: flex; align-items: center; justify-content: space-between; }.filter-title h2 { margin: 0; font-size: 13px; }.filter-title button { border: 0; background: transparent; color: #5144c8; font-size: 8px; }.filtros section { padding: 15px 0; border-bottom: 1px solid #eeeef3; }.filtros h3 { margin: 0 0 9px; font-size: 10px; }.filtros label { display: block; margin: 7px 0; color: #686477; font-size: 9px; }.filtros input[type='checkbox'] { accent-color: #4a3ec5; vertical-align: middle; }.range { height: 3px; margin: 15px 3px; border-radius: 4px; background: #dedbeb; }.range span { display: block; width: 76%; height: 100%; border-radius: inherit; background: #4a3ec5; }.price-inputs { display: flex; gap: 5px; }.price-inputs input { width: 50%; padding: 6px 3px; border: 1px solid #dedde7; border-radius: 4px; color: #77738e; font-size: 8px; }.filter-button { width: 100%; margin-top: 14px; padding: 9px; border: 0; border-radius: 5px; background: #ff593f; color: #fff; font-size: 9px; font-weight: 800; }.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }.card { position: relative; min-height: 202px; padding: 9px; border: 1px solid #e2e1e9; border-radius: 7px; background: #fff; }.card img { width: 100%; height: 103px; object-fit: contain; }.card h2 { min-height: 29px; margin: 7px 0 5px; font-size: 9px; line-height: 1.35; font-weight: 600; }.card strong { color: #ff593f; font-size: 11px; }.card button { position: absolute; right: 8px; bottom: 8px; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 50%; background: #2e277d; color: #fff; font-size: 9px; }.pagination { margin-top: 26px; display: flex; justify-content: center; align-items: center; gap: 5px; }.pagination button { width: 23px; height: 23px; border: 1px solid #e0dfea; border-radius: 4px; background: #fff; color: #514d61; font-size: 10px; }.pagination .active { border-color: #4a3ec5; background: #4a3ec5; color: #fff; }
-:host .top-bar { background: #1e1955; color: #fff; font-size: 10px; }:host .top-bar > div { max-width: 1320px; margin: auto; padding: 7px 28px; display: flex; justify-content: space-between; }.newsletter { padding: 26px max(8%, calc((100% - 1160px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #292365; color: #fff; }.newsletter-brand { display: flex; align-items: center; gap: 18px; }.newsletter-brand img { width: 145px; height: 62px; object-fit: contain; }.newsletter h2 { margin: 0; font-size: 15px; }.newsletter p { margin: 5px 0 0; color: #bbb8d5; font-size: 9px; }.newsletter form { display: flex; min-width: 310px; }.newsletter input { flex: 1; min-width: 0; padding: 11px; border: 0; border-radius: 6px 0 0 6px; font-size: 10px; }.newsletter button { padding: 0 15px; border: 0; border-radius: 0 6px 6px 0; background: #ff593f; color: #fff; font-size: 9px; font-weight: 800; }
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } .filtros { display: none; } .catalogo-layout { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .catalogo-page { padding: 16px 20px 35px; } .resultados span, :host .top-bar > div span:last-child { display: none; } .grid { grid-template-columns: repeat(2, 1fr); gap: 9px; } .card { min-height: 190px; } .newsletter { padding: 25px 20px; flex-direction: column; align-items: flex-start; } .newsletter-brand { gap: 11px; } .newsletter-brand img { width: 110px; } .newsletter h2 { font-size: 13px; } .newsletter form { width: 100%; min-width: 0; } }
+/* Base da tela de catálogo. */
+:host {
+    display: block;
+    background: var(--color-page);
+    color: #27243a;
+}
+
+.catalogo-page {
+    max-width: var(--content-width);
+    margin: auto;
+    padding: 19px 28px 48px;
+}
+
+/* Caminho de navegação no topo da página. */
+.breadcrumbs {
+    color: var(--color-muted);
+    font-size: 10px;
+}
+
+.breadcrumbs span {
+    margin: 0 5px;
+}
+
+.catalogo-page h1 {
+    margin: 10px 0 4px;
+    font-size: 22px;
+}
+
+/* Linha com total de resultados e ordenação. */
+.resultados {
+    margin: 0 0 18px;
+    display: flex;
+    justify-content: space-between;
+    color: #686477;
+    font-size: 10px;
+}
+
+.resultados span {
+    color: var(--color-text-soft);
+}
+
+.resultados b {
+    color: #312a81;
+}
+
+/* Grade principal com filtros ao lado dos produtos. */
+.catalogo-layout {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    gap: 18px;
+}
+
+/* Painel lateral de filtros. */
+.filtros {
+    align-self: start;
+    padding: 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface);
+}
+
+.filter-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filter-title h2 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.filter-title button {
+    border: 0;
+    background: transparent;
+    color: #5144c8;
+    font-size: 8px;
+}
+
+.filtros section {
+    padding: 15px 0;
+    border-bottom: 1px solid #eeeef3;
+}
+
+.filtros h3 {
+    margin: 0 0 9px;
+    font-size: 10px;
+}
+
+.filtros label {
+    display: block;
+    margin: 7px 0;
+    color: #686477;
+    font-size: 9px;
+}
+
+.filtros input[type='checkbox'] {
+    accent-color: #4a3ec5;
+    vertical-align: middle;
+}
+
+/* Controle visual de faixa de preço. */
+.range {
+    height: 3px;
+    margin: 15px 3px;
+    border-radius: 4px;
+    background: #dedbeb;
+}
+
+.range span {
+    width: 76%;
+    height: 100%;
+    display: block;
+    border-radius: inherit;
+    background: #4a3ec5;
+}
+
+.price-inputs {
+    display: flex;
+    gap: 5px;
+}
+
+.price-inputs input {
+    width: 50%;
+    padding: 6px 3px;
+    border: 1px solid #dedde7;
+    border-radius: 4px;
+    color: var(--color-text-soft);
+    font-size: 8px;
+}
+
+.filter-button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 9px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* Lista de produtos do catálogo. */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.card {
+    position: relative;
+    min-height: 202px;
+    padding: 9px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface);
+}
+
+.card img {
+    width: 100%;
+    height: 103px;
+    object-fit: contain;
+}
+
+.card h2 {
+    min-height: 29px;
+    margin: 7px 0 5px;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.card strong {
+    color: var(--color-accent);
+    font-size: 11px;
+}
+
+.card button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-brand-strong);
+    color: #fff;
+    font-size: 9px;
+}
+
+/* Paginação visual do catálogo. */
+.pagination {
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pagination button {
+    width: 23px;
+    height: 23px;
+    border: 1px solid #e0dfea;
+    border-radius: 4px;
+    background: #fff;
+    color: #514d61;
+    font-size: 10px;
+}
+
+.pagination .active {
+    border-color: #4a3ec5;
+    background: #4a3ec5;
+    color: #fff;
+}
+
+/* Ajustes para tablet. */
+@media (max-width: 900px) {
+    .catalogo-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        display: none;
+    }
+
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Ajustes para celular. */
+@media (max-width: 600px) {
+    .catalogo-page {
+        padding: 16px 20px 35px;
+    }
+
+    .resultados span {
+        display: none;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+    }
+
+    .card {
+        min-height: 190px;
+    }
+}

@@ -1,1 +1,85 @@
-.newsletter { padding: 26px max(8%, calc((100% - 1160px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; background: #292365; color: #fff; }.newsletter-brand { display: flex; align-items: center; gap: 18px; }.newsletter-brand img { width: 145px; height: 62px; object-fit: contain; }.newsletter h2 { margin: 0; font-size: 15px; }.newsletter p { margin: 5px 0 0; color: #bbb8d5; font-size: 9px; }.newsletter form { display: flex; min-width: 310px; }.newsletter input { flex: 1; min-width: 0; padding: 11px; border: 0; border-radius: 6px 0 0 6px; font-size: 10px; }.newsletter button { padding: 0 15px; border: 0; border-radius: 0 6px 6px 0; background: #ff593f; color: #fff; font-size: 9px; font-weight: 800; }
+/* Bloco de cadastro de e-mail. */
+.newsletter {
+    padding: 26px var(--section-pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: var(--color-brand-panel);
+    color: #fff;
+}
+
+/* Marca e chamada principal. */
+.newsletter-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.newsletter-brand img {
+    width: 145px;
+    height: 62px;
+    object-fit: contain;
+}
+
+.newsletter h2 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.newsletter p {
+    margin: 5px 0 0;
+    color: #bbb8d5;
+    font-size: 9px;
+}
+
+/* Formulário com campo e botão unidos. */
+.newsletter form {
+    min-width: 310px;
+    display: flex;
+}
+
+.newsletter input {
+    min-width: 0;
+    flex: 1;
+    padding: 11px;
+    border: 0;
+    border-radius: 6px 0 0 6px;
+    font-size: 10px;
+}
+
+.newsletter button {
+    padding: 0 15px;
+    border: 0;
+    border-radius: 0 6px 6px 0;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+/* Empilha a chamada e o formulário em telas pequenas. */
+@media (max-width: 600px) {
+    .newsletter {
+        padding: 25px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .newsletter-brand {
+        gap: 11px;
+    }
+
+    .newsletter-brand img {
+        width: 110px;
+    }
+
+    .newsletter h2 {
+        font-size: 13px;
+    }
+
+    .newsletter form {
+        width: 100%;
+        min-width: 0;
+    }
+}

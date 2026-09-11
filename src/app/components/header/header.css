@@ -1,25 +1,279 @@
-:host { display: block; background: #fff; }
-.header { max-width: 1320px; min-height: 72px; margin: auto; padding: 8px 28px; display: flex; align-items: center; gap: 18px; }
-.logo, .user, .cart { color: inherit; text-decoration: none; }
-.logo { display: flex; align-items: center; gap: 8px; color: #302995; font-size: 18px; font-weight: 800; white-space: nowrap; }
-.logo-icon { width: 110px; height: 50px; flex: 0 0 110px; overflow: hidden; }.logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-.logo > span:last-child { display: none; }
-.categorias { min-height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 13px; border: 1px solid #e5e5ed; border-radius: 7px; background: #f8f8fb; color: #25233d; font-size: 12px; font-weight: 700; }.arrow { font-size: 14px; color: #77738e; }
-.search-container { flex: 1; max-width: 610px; height: 44px; display: flex; align-items: center; border: 1.5px solid #5546da; border-radius: 999px; background: #fff; overflow: hidden; }.search-icon { width: 13px; height: 13px; flex: 0 0 13px; margin-left: 17px; position: relative; border: 1.7px solid #77738e; border-radius: 50%; }.search-icon::after, .search-button-icon::after { content: ''; position: absolute; width: 5px; height: 1.7px; right: -4px; bottom: -2px; background: currentColor; border-radius: 2px; transform: rotate(45deg); }
-.search-container input { min-width: 0; flex: 1; height: 100%; padding: 0 13px; border: 0; outline: 0; background: transparent; color: #292640; font-size: 11px; line-height: 44px; }.search-container input::placeholder { color: #9995ab; }.search-button { width: 38px; height: 38px; margin-right: 2px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #4539c2; color: #fff; }.search-button-icon { width: 12px; height: 12px; position: relative; border: 1.7px solid currentColor; border-radius: 50%; }
-.user, .cart { display: flex; align-items: center; gap: 7px; white-space: nowrap; }.user-icon, .cart-icon { position: relative; color: #302995; font-size: 17px; }.user-text, .cart-text { display: flex; flex-direction: column; }.user-text small, .cart-text small { color: #77738e; font-size: 9px; }.user-text strong, .cart-text strong { color: #292640; font-size: 11px; }.cart-count { position: absolute; top: -8px; right: -9px; width: 14px; height: 14px; display: grid; place-items: center; border-radius: 50%; background: #ff5b4d; color: #fff; font: 700 8px Arial; }
-@media (max-width: 900px) { .header { gap: 12px; padding: 12px 20px; } .user-text, .cart-text, .categorias { display: none; } }
-@media (max-width: 600px) { .header { min-height: auto; flex-wrap: wrap; } .logo { font-size: 16px; } .search-container { order: 3; flex-basis: 100%; max-width: none; } .cart { margin-left: auto; } }
-
-@media (min-width: 901px) {
-  .header { position: relative; }
-  .search-container { position: absolute; left: 50%; width: min(48vw, 610px); transform: translateX(-50%); }
-  .user { margin-left: auto; }
+/* Área branca que separa o cabeçalho do restante da página. */
+:host {
+    display: block;
+    background: var(--color-surface);
 }
 
-.search-container { transition: border-color .22s ease, box-shadow .22s ease, background-color .22s ease; }
-.search-button, .search-icon { transition: transform .22s ease, background-color .22s ease, color .22s ease; }
-.search-container:hover { border-color: #6c60e3; box-shadow: 0 4px 12px rgba(64, 53, 184, .14); }
-.search-container:focus-within { border-color: #ff593f; background: #fff; box-shadow: 0 0 0 4px rgba(255, 89, 63, .14), 0 7px 16px rgba(64, 53, 184, .13); }
-.search-container:focus-within .search-icon { color: #ff593f; transform: scale(1.1); }
-.search-container:focus-within .search-button { background: #ff593f; transform: scale(1.06); }
+/* Layout principal do header. */
+.header {
+    max-width: var(--content-width);
+    min-height: 72px;
+    margin: auto;
+    padding: 8px 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Links do header sem sublinhado padrão. */
+.logo,
+.user,
+.cart {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Marca e imagem do logo. */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-brand);
+    font-size: 18px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.logo-icon {
+    width: 110px;
+    height: 50px;
+    flex: 0 0 110px;
+    overflow: hidden;
+}
+
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Botão de categorias, mantido para expansão futura. */
+.categorias {
+    min-height: 38px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #e5e5ed;
+    border-radius: 7px;
+    background: var(--color-surface-soft);
+    color: #25233d;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.arrow {
+    color: var(--color-text-soft);
+    font-size: 14px;
+}
+
+/* Barra de busca central com ícone e botão de envio. */
+.search-container {
+    flex: 1;
+    max-width: 610px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border: 1.5px solid #5546da;
+    border-radius: 999px;
+    background: var(--color-surface);
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background-color 0.22s ease;
+}
+
+.search-icon,
+.search-button-icon {
+    position: relative;
+    border: 1.7px solid currentColor;
+    border-radius: 50%;
+}
+
+.search-icon {
+    width: 13px;
+    height: 13px;
+    flex: 0 0 13px;
+    margin-left: 17px;
+    color: var(--color-text-soft);
+    transition:
+        transform 0.22s ease,
+        color 0.22s ease;
+}
+
+.search-icon::after,
+.search-button-icon::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    bottom: -2px;
+    width: 5px;
+    height: 1.7px;
+    border-radius: 2px;
+    background: currentColor;
+    transform: rotate(45deg);
+}
+
+.search-container input {
+    min-width: 0;
+    height: 100%;
+    flex: 1;
+    padding: 0 13px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-text);
+    font-size: 11px;
+    line-height: 44px;
+}
+
+.search-container input::placeholder {
+    color: #9995ab;
+}
+
+.search-button {
+    width: 38px;
+    height: 38px;
+    margin-right: 2px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: #4539c2;
+    color: #fff;
+    transition:
+        transform 0.22s ease,
+        background-color 0.22s ease;
+}
+
+.search-button-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* Área de conta e carrinho. */
+.user,
+.cart {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.user-icon,
+.cart-icon {
+    position: relative;
+    color: var(--color-brand);
+    font-size: 17px;
+}
+
+.user-text,
+.cart-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-text small,
+.cart-text small {
+    color: var(--color-text-soft);
+    font-size: 9px;
+}
+
+.user-text strong,
+.cart-text strong {
+    color: var(--color-text);
+    font-size: 11px;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -9px;
+    width: 14px;
+    height: 14px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #ff5b4d;
+    color: #fff;
+    font: 700 8px Arial;
+}
+
+/* Estados de hover e foco da busca. */
+.search-container:hover {
+    border-color: #6c60e3;
+    box-shadow: 0 4px 12px rgba(64, 53, 184, 0.14);
+}
+
+.search-container:focus-within {
+    border-color: var(--color-accent);
+    background: var(--color-surface);
+    box-shadow:
+        0 0 0 4px rgba(255, 89, 63, 0.14),
+        0 7px 16px rgba(64, 53, 184, 0.13);
+}
+
+.search-container:focus-within .search-icon {
+    color: var(--color-accent);
+    transform: scale(1.1);
+}
+
+.search-container:focus-within .search-button {
+    background: var(--color-accent);
+    transform: scale(1.06);
+}
+
+/* Ajustes para tablet. */
+@media (max-width: 900px) {
+    .header {
+        gap: 12px;
+        padding: 12px 20px;
+    }
+
+    .user-text,
+    .cart-text,
+    .categorias {
+        display: none;
+    }
+}
+
+/* Ajustes para celular. */
+@media (max-width: 600px) {
+    .header {
+        min-height: auto;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .search-container {
+        order: 3;
+        flex-basis: 100%;
+        max-width: none;
+    }
+
+    .cart {
+        margin-left: auto;
+    }
+}
+
+/* No desktop a busca permanece centralizada visualmente. */
+@media (min-width: 901px) {
+    .header {
+        position: relative;
+    }
+
+    .search-container {
+        position: absolute;
+        left: 50%;
+        width: min(48vw, 610px);
+        transform: translateX(-50%);
+    }
+
+    .user {
+        margin-left: auto;
+    }
+}

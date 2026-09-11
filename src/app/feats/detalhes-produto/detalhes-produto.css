@@ -1,2 +1,275 @@
-:host { display: block; background: #f7f7fa; color: #292640; }.detalhe-page { max-width: 1320px; margin: auto; padding: 18px 28px 44px; }.breadcrumbs { display: flex; gap: 6px; color: #8c899b; font-size: 9px; }.breadcrumbs a { color: #6e6a81; text-decoration: none; }.produto-principal { margin-top: 16px; display: grid; grid-template-columns: minmax(360px, 520px) 1fr; gap: 34px; }.imagem-principal { height: 330px; display: grid; place-items: center; overflow: hidden; border-radius: 7px; background: #efeff2; }.imagem-principal img { width: 100%; height: 100%; object-fit: contain; }.miniaturas { margin-top: 10px; display: flex; gap: 9px; }.miniaturas button { width: 47px; height: 43px; padding: 2px; border: 1px solid #e0dfe8; border-radius: 5px; background: #f2f2f3; }.miniaturas button.active { border: 2px solid #ff593f; }.miniaturas img { width: 100%; height: 100%; object-fit: contain; }.compra { padding-top: 3px; }.compra h1 { max-width: 530px; margin: 0; font-size: 21px; line-height: 1.2; }.preco { display: block; margin-top: 16px; color: #ff593f; font-size: 23px; }.parcelamento { margin: 5px 0 18px; color: #878394; font-size: 10px; }.quantidade { padding: 13px 0; border-top: 1px solid #e6e5eb; border-bottom: 1px solid #e6e5eb; }.quantidade > span { display: block; margin-bottom: 8px; font-size: 10px; font-weight: 700; }.quantidade div { width: 92px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #dedde6; border-radius: 5px; }.quantidade button { width: 27px; height: 26px; border: 0; background: #f5f4f8; color: #342d85; }.quantidade b { font-size: 11px; }.acoes { display: grid; grid-template-columns: 1fr 1.25fr; gap: 9px; margin-top: 18px; }.acoes button { height: 40px; border: 0; border-radius: 5px; color: #fff; font-size: 10px; font-weight: 800; }.comprar { background: #ff593f; }.carrinho { background: #29206e; }.descricao, .relacionados { margin-top: 34px; padding-top: 18px; border-top: 1px solid #e3e2e9; }.tabs { display: flex; gap: 18px; border-bottom: 1px solid #e5e4eb; }.tabs button { padding: 0 0 9px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #77738b; font-size: 10px; }.tabs .selected { border-color: #ff593f; color: #302995; font-weight: 800; }.descricao h2, .relacionados > h2 { margin: 17px 0 9px; font-size: 13px; }.descricao p { max-width: 1040px; margin: 6px 0; color: #787587; font-size: 9px; line-height: 1.65; }.related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }.related-grid article { position: relative; min-height: 188px; padding: 9px; border: 1px solid #e2e1e9; border-radius: 7px; background: #fff; }.related-grid img { width: 100%; height: 98px; object-fit: contain; }.related-grid h3 { min-height: 24px; margin: 5px 0; font-size: 9px; line-height: 1.35; font-weight: 600; }.related-grid strong { color: #ff593f; font-size: 11px; }.related-grid button { position: absolute; right: 8px; bottom: 8px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: #2e277d; color: #fff; font-size: 9px; }
-@media (max-width: 700px) { .detalhe-page { padding: 16px 20px 34px; }.produto-principal { grid-template-columns: 1fr; gap: 22px; }.imagem-principal { height: 280px; }.compra h1 { font-size: 18px; }.acoes { grid-template-columns: 1fr; }.related-grid { grid-template-columns: repeat(2, 1fr); } }
+/* Base da tela de detalhes do produto. */
+:host {
+    display: block;
+    background: var(--color-page);
+    color: var(--color-text);
+}
+
+.detalhe-page {
+    max-width: var(--content-width);
+    margin: auto;
+    padding: 18px 28px 44px;
+}
+
+/* Caminho de navegação. */
+.breadcrumbs {
+    display: flex;
+    gap: 6px;
+    color: #8c899b;
+    font-size: 9px;
+}
+
+.breadcrumbs a {
+    color: #6e6a81;
+    text-decoration: none;
+}
+
+/* Área principal com galeria e informações de compra. */
+.produto-principal {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: minmax(360px, 520px) 1fr;
+    gap: 34px;
+}
+
+.imagem-principal {
+    height: 330px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 7px;
+    background: #efeff2;
+}
+
+.imagem-principal img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.miniaturas {
+    margin-top: 10px;
+    display: flex;
+    gap: 9px;
+}
+
+.miniaturas button {
+    width: 47px;
+    height: 43px;
+    padding: 2px;
+    border: 1px solid #e0dfe8;
+    border-radius: var(--radius-sm);
+    background: #f2f2f3;
+}
+
+.miniaturas button.active {
+    border: 2px solid var(--color-accent);
+}
+
+.miniaturas img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Informações de preço, quantidade e ações de compra. */
+.compra {
+    padding-top: 3px;
+}
+
+.compra h1 {
+    max-width: 530px;
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.2;
+}
+
+.preco {
+    display: block;
+    margin-top: 16px;
+    color: var(--color-accent);
+    font-size: 23px;
+}
+
+.parcelamento {
+    margin: 5px 0 18px;
+    color: #878394;
+    font-size: 10px;
+}
+
+.quantidade {
+    padding: 13px 0;
+    border-top: 1px solid #e6e5eb;
+    border-bottom: 1px solid #e6e5eb;
+}
+
+.quantidade > span {
+    margin-bottom: 8px;
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.quantidade div {
+    width: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #dedde6;
+    border-radius: var(--radius-sm);
+}
+
+.quantidade button {
+    width: 27px;
+    height: 26px;
+    border: 0;
+    background: #f5f4f8;
+    color: #342d85;
+}
+
+.quantidade b {
+    font-size: 11px;
+}
+
+.acoes {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 9px;
+}
+
+.acoes button {
+    height: 40px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.comprar {
+    background: var(--color-accent);
+}
+
+.carrinho {
+    background: #29206e;
+}
+
+/* Descrição do produto e abas informativas. */
+.descricao,
+.relacionados {
+    margin-top: 34px;
+    padding-top: 18px;
+    border-top: 1px solid #e3e2e9;
+}
+
+.tabs {
+    display: flex;
+    gap: 18px;
+    border-bottom: 1px solid #e5e4eb;
+}
+
+.tabs button {
+    padding: 0 0 9px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #77738b;
+    font-size: 10px;
+}
+
+.tabs .selected {
+    border-color: var(--color-accent);
+    color: var(--color-brand);
+    font-weight: 800;
+}
+
+.descricao h2,
+.relacionados > h2 {
+    margin: 17px 0 9px;
+    font-size: 13px;
+}
+
+.descricao p {
+    max-width: 1040px;
+    margin: 6px 0;
+    color: #787587;
+    font-size: 9px;
+    line-height: 1.65;
+}
+
+/* Produtos relacionados exibidos ao final da página. */
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 13px;
+}
+
+.related-grid article {
+    position: relative;
+    min-height: 188px;
+    padding: 9px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
+    background: var(--color-surface);
+}
+
+.related-grid img {
+    width: 100%;
+    height: 98px;
+    object-fit: contain;
+}
+
+.related-grid h3 {
+    min-height: 24px;
+    margin: 5px 0;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.related-grid strong {
+    color: var(--color-accent);
+    font-size: 11px;
+}
+
+.related-grid button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-brand-strong);
+    color: #fff;
+    font-size: 9px;
+}
+
+/* Ajustes para celular. */
+@media (max-width: 700px) {
+    .detalhe-page {
+        padding: 16px 20px 34px;
+    }
+
+    .produto-principal {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .imagem-principal {
+        height: 280px;
+    }
+
+    .compra h1 {
+        font-size: 18px;
+    }
+
+    .acoes {
+        grid-template-columns: 1fr;
+    }
+
+    .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
