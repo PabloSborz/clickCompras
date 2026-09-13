@@ -1,1 +1,238 @@
-<p>pagamento works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+
+<main class="purchase-page">
+    <!-- Breadcrumb: mostra o caminho ate a etapa de pagamento. -->
+    <nav class="breadcrumbs">
+        <a routerLink="/">Home</a>
+        <span>&gt;</span>
+        <a routerLink="/carrinho">Carrinho</a>
+        <span>&gt;</span>
+        <a routerLink="/checkout">Checkout</a>
+        <span>&gt;</span>
+        <strong>Pagamento</strong>
+    </nav>
+
+    <!-- Titulo e stepper com pagamento ativo. -->
+    <div class="checkout-heading">
+        <h1>Finalizar Compra</h1>
+
+        <ol class="flow-stepper" aria-label="Etapas do checkout">
+            <li class="done"><b>&check;</b> Dados Pessoais</li>
+            <li class="active"><b>2</b> Pagamento</li>
+            <li><b>3</b> Confirma&ccedil;&atilde;o</li>
+        </ol>
+    </div>
+
+    <!-- Layout principal: pagamento a esquerda e resumo a direita. -->
+    <section class="payment-layout">
+        <div class="payment-main">
+            <!-- Bloco de selecao da forma de pagamento. -->
+            <section class="form-panel">
+                <h2 class="section-title">
+                    <span aria-hidden="true">&#8594;</span> Metodo de Pagamento
+                </h2>
+
+                <div class="payment-tabs" role="tablist" aria-label="Metodos de pagamento">
+                    <button
+                        type="button"
+                        [class.active]="store.paymentMethod() === 'pix'"
+                        (click)="selectPayment('pix')"
+                    >
+                        PIX (5% OFF)
+                    </button>
+                    <button
+                        type="button"
+                        [class.active]="store.paymentMethod() === 'card'"
+                        (click)="selectPayment('card')"
+                    >
+                        Cart&atilde;o
+                    </button>
+                    <button
+                        type="button"
+                        [class.active]="store.paymentMethod() === 'boleto'"
+                        (click)="selectPayment('boleto')"
+                    >
+                        Boleto
+                    </button>
+                </div>
+
+                @if (store.paymentMethod() === 'pix') {
+                    <div class="pix-panel">
+                        <h3>Instru&ccedil;&otilde;es de Pagamento PIX</h3>
+                        <p>
+                            Escaneie o QR Code ou copie o codigo para pagar via PIX. O pagamento e
+                            confirmado em poucos segundos.
+                        </p>
+
+                        <div class="qr-area">
+                            <div class="qr-code" aria-label="QR Code PIX">
+                                @for (cell of qrCells; track $index) {
+                                    <span [class.filled]="cell"></span>
+                                }
+                            </div>
+                            <p>
+                                <b>Codigo PIX:</b>
+                                <span>{{ store.pixCode }}</span>
+                            </p>
+                            <button class="primary-action" type="button" (click)="copyPixCode()">
+                                {{ copied() ? 'CODIGO COPIADO' : 'COPIAR CODIGO PIX' }}
+                            </button>
+                        </div>
+                    </div>
+                } @else if (store.paymentMethod() === 'card') {
+                    <div class="card-panel">
+                        <div class="field-grid">
+                            <div class="field span-6">
+                                <label for="cardName">Nome impresso no cartao</label>
+                                <input
+                                    id="cardName"
+                                    name="cardName"
+                                    type="text"
+                                    placeholder="Nome completo"
+                                    [(ngModel)]="cardName"
+                                />
+                            </div>
+                            <div class="field span-6">
+                                <label for="cardNumber">Numero do cartao</label>
+                                <input
+                                    id="cardNumber"
+                                    name="cardNumber"
+                                    type="text"
+                                    placeholder="0000 0000 0000 0000"
+                                    [(ngModel)]="cardNumber"
+                                />
+                            </div>
+                            <div class="field span-2">
+                                <label for="cardExpiry">Validade</label>
+                                <input
+                                    id="cardExpiry"
+                                    name="cardExpiry"
+                                    type="text"
+                                    placeholder="MM/AA"
+                                    [(ngModel)]="cardExpiry"
+                                />
+                            </div>
+                            <div class="field span-2">
+                                <label for="cardCvv">CVV</label>
+                                <input
+                                    id="cardCvv"
+                                    name="cardCvv"
+                                    type="password"
+                                    placeholder="000"
+                                    [(ngModel)]="cardCvv"
+                                />
+                            </div>
+                            <div class="field span-2">
+                                <label for="installments">Parcelas</label>
+                                <select
+                                    id="installments"
+                                    name="installments"
+                                    [(ngModel)]="installments"
+                                >
+                                    <option value="1">1x sem juros</option>
+                                    <option value="3">3x sem juros</option>
+                                    <option value="6">6x sem juros</option>
+                                    <option value="10">10x sem juros</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                } @else {
+                    <div class="boleto-panel">
+                        <strong>Boleto gerado na finaliza&ccedil;&atilde;o</strong>
+                        <p>
+                            A confirma&ccedil;&atilde;o acontece em ate 2 dias uteis apos o
+                            pagamento.
+                        </p>
+                    </div>
+                }
+            </section>
+
+            <!-- Endereco de cobranca: usa o mesmo endereco de entrega por padrao. -->
+            <section class="form-panel billing-panel">
+                <h2 class="section-title">
+                    <span aria-hidden="true">&#9873;</span> Endere&ccedil;o de Cobranca
+                </h2>
+                <label>
+                    <input
+                        type="checkbox"
+                        [ngModel]="store.billingSameAsDelivery()"
+                        (ngModelChange)="store.setBillingSameAsDelivery($event)"
+                        name="billingSameAsDelivery"
+                    />
+                    Usar o mesmo endere&ccedil;o de entrega para a cobran&ccedil;a
+                </label>
+            </section>
+
+            <!-- Acoes finais da etapa de pagamento. -->
+            <div class="payment-actions">
+                <a class="outline-action" routerLink="/checkout">&larr; VOLTAR</a>
+                <button class="primary-action" type="button" (click)="finishOrder()">
+                    FINALIZAR PEDIDO &rarr;
+                </button>
+            </div>
+        </div>
+
+        <aside class="payment-side">
+            <!-- Resumo lateral com os mesmos totais do carrinho. -->
+            <section class="summary-card compact" aria-label="Resumo do pedido">
+                <h2>Resumo do Pedido</h2>
+
+                <div class="summary-products">
+                    @for (item of store.items(); track item.id) {
+                        <article class="summary-product">
+                            <img [src]="item.image" [alt]="item.name" />
+                            <div>
+                                <h3>{{ item.name }}</h3>
+                                <small>Qtd: {{ item.quantity }}</small>
+                            </div>
+                            <strong>{{ store.formatCurrency(item.price * item.quantity) }}</strong>
+                        </article>
+                    }
+                </div>
+
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <strong>{{ store.formatCurrency(store.subtotal()) }}</strong>
+                </div>
+                <div class="summary-line">
+                    <span>Frete</span>
+                    <strong class="free">
+                        {{
+                            store.shippingTotal() === 0
+                                ? 'Gratis'
+                                : store.formatCurrency(store.shippingTotal())
+                        }}
+                    </strong>
+                </div>
+                <div class="summary-line">
+                    <span>Desconto</span>
+                    <strong class="discount">-{{ store.formatCurrency(store.discount()) }}</strong>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong>{{ store.formatCurrency(store.total()) }}</strong>
+                </div>
+
+                <p class="secure-note">&#128274; Compra 100% Segura</p>
+            </section>
+
+            <!-- Bandeiras aceitas exibidas abaixo do resumo. -->
+            <section class="payment-flags">
+                <h2>Bandeiras Aceitas e Formas de Pagamento</h2>
+                <div>
+                    <span>Visa</span>
+                    <span>Master</span>
+                    <span>Elo</span>
+                    <span>PIX</span>
+                </div>
+            </section>
+        </aside>
+    </section>
+</main>
+
+<!-- Faixas finais compartilhadas do site. -->
+<app-trust-strip></app-trust-strip>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

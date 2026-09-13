@@ -10,6 +10,16 @@
     color: #fff;
 }
 
+#inicio > app-newsletter {
+    display: block;
+}
+
+#inicio > .benefits + .content-section,
+#inicio > .content-section + .content-section,
+#inicio > .content-section + .info-strip {
+    margin-top: 28px;
+}
+
 .hero-copy {
     max-width: 590px;
 }
@@ -38,7 +48,10 @@
 }
 
 .hero-link {
-    display: inline-block;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     margin-top: 23px;
     padding: 13px 18px;
     border: 1px solid #fff;
@@ -48,6 +61,49 @@
     font-size: 10px;
     font-weight: 800;
     text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 10px 22px rgba(10, 7, 50, 0.18);
+    transition:
+        box-shadow 0.22s ease,
+        transform 0.22s ease,
+        background-color 0.22s ease;
+}
+
+.hero-link::before {
+    content: '';
+    position: absolute;
+    inset: -1px auto -1px -65%;
+    width: 46%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.44), transparent);
+    transform: skewX(-18deg);
+    animation: banner-button-shine 3.1s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-link::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: calc(var(--radius-md) - 2px);
+    opacity: 0;
+    animation: banner-button-pulse 2.8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-link span {
+    display: inline-block;
+    transition: transform 0.22s ease;
+}
+
+.hero-link:hover {
+    background: #ff6b55;
+    box-shadow: 0 14px 28px rgba(10, 7, 50, 0.28);
+    transform: translateY(-3px) scale(1.03);
+}
+
+.hero-link:hover span {
+    transform: translateX(4px);
 }
 
 /* Composição visual dos produtos que giram no hero. */
@@ -76,6 +132,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    animation: banner-image-float 4.8s ease-in-out infinite;
+    transform-origin: center;
+    will-change: transform;
 }
 
 .speaker {
@@ -108,8 +167,16 @@
     animation-name: orbitar-card-centro;
 }
 
+.hero-card.phone img {
+    animation-delay: -1.4s;
+}
+
 .hero-card.headset {
     animation-name: orbitar-card-direita;
+}
+
+.hero-card.headset img {
+    animation-delay: -2.7s;
 }
 
 /* Faixas horizontais com mensagens de benefício e segurança. */
@@ -483,6 +550,46 @@
     }
 }
 
+@keyframes banner-image-float {
+    0%,
+    100% {
+        transform: scale(1) translateY(0);
+    }
+
+    45% {
+        transform: scale(1.08) translateY(-8px);
+    }
+
+    70% {
+        transform: scale(1.04) translateY(4px);
+    }
+}
+
+@keyframes banner-button-pulse {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes banner-button-shine {
+    0%,
+    52% {
+        left: -65%;
+    }
+
+    82%,
+    100% {
+        left: 125%;
+    }
+}
+
 /* Deslocamento contínuo das faixas de mensagens. */
 @keyframes ticker-horizontal {
     to {
@@ -493,6 +600,10 @@
 /* Reduz efeitos para usuários que preferem menos movimento. */
 @media (prefers-reduced-motion: reduce) {
     .hero-card,
+    .hero-card img,
+    .hero-link,
+    .hero-link::before,
+    .hero-link::after,
     .ticker-track {
         animation: none;
     }
@@ -516,6 +627,12 @@
 
 /* Ajustes para celular. */
 @media (max-width: 600px) {
+    #inicio > .benefits + .content-section,
+    #inicio > .content-section + .content-section,
+    #inicio > .content-section + .info-strip {
+        margin-top: 18px;
+    }
+
     .hero {
         padding: 36px 24px 22px;
         flex-direction: column;

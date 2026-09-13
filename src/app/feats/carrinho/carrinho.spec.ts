@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Carrinho } from './carrinho';
 
 describe('Carrinho', () => {
-  let component: Carrinho;
-  let fixture: ComponentFixture<Carrinho>;
+    let component: Carrinho;
+    let fixture: ComponentFixture<Carrinho>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Carrinho],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [Carrinho],
+            providers: [provideRouter([])],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(Carrinho);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+        fixture = TestBed.createComponent(Carrinho);
+        component = fixture.componentInstance;
+        await fixture.whenStable();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

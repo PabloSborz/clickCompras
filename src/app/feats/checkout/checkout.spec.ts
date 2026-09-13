@@ -1,21 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { Checkout } from './checkout';
 
 describe('Checkout', () => {
-  let component: Checkout;
-  let fixture: ComponentFixture<Checkout>;
+    let component: Checkout;
+    let fixture: ComponentFixture<Checkout>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Checkout],
-    }).compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [Checkout],
+            providers: [provideRouter([])],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(Checkout);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+        fixture = TestBed.createComponent(Checkout);
+        component = fixture.componentInstance;
+        await fixture.whenStable();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -1,18 +1,19 @@
-/* Base da tela de detalhes do produto. */
 :host {
+    /* Fundo geral da tela de detalhes. */
     display: block;
     background: var(--color-page);
     color: var(--color-text);
 }
 
 .detalhe-page {
+    /* Mantem o mesmo alinhamento lateral do catalogo e checkout. */
     max-width: var(--content-width);
     margin: auto;
-    padding: 18px 28px 44px;
+    padding: 24px 40px 56px;
 }
 
-/* Caminho de navegação. */
 .breadcrumbs {
+    /* Caminho de navegacao para voltar ao catalogo. */
     display: flex;
     gap: 6px;
     color: #8c899b;
@@ -24,8 +25,8 @@
     text-decoration: none;
 }
 
-/* Área principal com galeria e informações de compra. */
 .produto-principal {
+    /* Divide galeria e informacoes de compra no desktop. */
     margin-top: 16px;
     display: grid;
     grid-template-columns: minmax(360px, 520px) 1fr;
@@ -33,6 +34,7 @@
 }
 
 .imagem-principal {
+    /* Caixa principal da foto do produto. */
     height: 330px;
     display: grid;
     place-items: center;
@@ -48,6 +50,7 @@
 }
 
 .miniaturas {
+    /* Botoes menores abaixo da imagem principal. */
     margin-top: 10px;
     display: flex;
     gap: 9px;
@@ -72,8 +75,8 @@
     object-fit: contain;
 }
 
-/* Informações de preço, quantidade e ações de compra. */
 .compra {
+    /* Coluna com nome, preco, quantidade e botoes. */
     padding-top: 3px;
 }
 
@@ -98,6 +101,7 @@
 }
 
 .quantidade {
+    /* Controle de quantidade antes das acoes de compra. */
     padding: 13px 0;
     border-top: 1px solid #e6e5eb;
     border-bottom: 1px solid #e6e5eb;
@@ -132,6 +136,7 @@
 }
 
 .acoes {
+    /* Botoes principais do produto. */
     margin-top: 18px;
     display: grid;
     grid-template-columns: 1fr 1.25fr;
@@ -155,9 +160,9 @@
     background: #29206e;
 }
 
-/* Descrição do produto e abas informativas. */
 .descricao,
 .relacionados {
+    /* Blocos abaixo do produto principal. */
     margin-top: 34px;
     padding-top: 18px;
     border-top: 1px solid #e3e2e9;
@@ -198,8 +203,8 @@
     line-height: 1.65;
 }
 
-/* Produtos relacionados exibidos ao final da página. */
 .related-grid {
+    /* Grade dos produtos relacionados. */
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 13px;
@@ -246,10 +251,9 @@
     font-size: 9px;
 }
 
-/* Ajustes para celular. */
 @media (max-width: 700px) {
     .detalhe-page {
-        padding: 16px 20px 34px;
+        padding: 18px 20px 42px;
     }
 
     .produto-principal {

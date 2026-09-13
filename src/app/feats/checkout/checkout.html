@@ -1,1 +1,258 @@
-<p>checkout works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+
+<main class="purchase-page">
+    <!-- Breadcrumb: mostra o progresso ate checkout. -->
+    <nav class="breadcrumbs">
+        <a routerLink="/">Home</a>
+        <span>&gt;</span>
+        <a routerLink="/carrinho">Carrinho</a>
+        <span>&gt;</span>
+        <strong>Checkout</strong>
+    </nav>
+
+    <!-- Titulo da tela e indicador das etapas do checkout. -->
+    <div class="checkout-heading">
+        <h1>Finalizar Compra</h1>
+
+        <ol class="flow-stepper" aria-label="Etapas do checkout">
+            <li class="active"><b>1</b> Dados Pessoais</li>
+            <li><b>2</b> Pagamento</li>
+            <li><b>3</b> Confirma&ccedil;&atilde;o</li>
+        </ol>
+    </div>
+
+    <!-- Conteudo principal: formulario de entrega e resumo lateral. -->
+    <section class="checkout-layout">
+        <form
+            class="checkout-form"
+            #checkoutForm="ngForm"
+            (ngSubmit)="continueToPayment(checkoutForm.valid)"
+            novalidate
+        >
+            <!-- Dados de entrega: campos obrigatorios antes do pagamento. -->
+            <section class="form-panel">
+                <h2 class="section-title">
+                    <span aria-hidden="true">&#9873;</span> Dados de Entrega
+                </h2>
+
+                <div class="field-grid">
+                    <div class="field span-6">
+                        <label for="fullName">Nome Completo</label>
+                        <input
+                            id="fullName"
+                            name="fullName"
+                            type="text"
+                            placeholder="Digite seu nome completo"
+                            [(ngModel)]="address.fullName"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-3">
+                        <label for="cpf">CPF</label>
+                        <input
+                            id="cpf"
+                            name="cpf"
+                            type="text"
+                            placeholder="000.000.000-00"
+                            [(ngModel)]="address.cpf"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-3">
+                        <label for="phone">Telefone</label>
+                        <input
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            placeholder="(00) 00000-0000"
+                            [(ngModel)]="address.phone"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-2">
+                        <label for="cep">CEP</label>
+                        <input
+                            id="cep"
+                            name="cep"
+                            type="text"
+                            placeholder="00000-000"
+                            [(ngModel)]="address.cep"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-4">
+                        <label for="street">Endere&ccedil;o</label>
+                        <input
+                            id="street"
+                            name="street"
+                            type="text"
+                            placeholder="Rua, Avenida, etc."
+                            [(ngModel)]="address.street"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-1">
+                        <label for="number">N&uacute;mero</label>
+                        <input
+                            id="number"
+                            name="number"
+                            type="text"
+                            placeholder="123"
+                            [(ngModel)]="address.number"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-2">
+                        <label for="complement">Complemento</label>
+                        <input
+                            id="complement"
+                            name="complement"
+                            type="text"
+                            placeholder="Apto, bloco, etc."
+                            [(ngModel)]="address.complement"
+                        />
+                    </div>
+
+                    <div class="field span-3">
+                        <label for="district">Bairro</label>
+                        <input
+                            id="district"
+                            name="district"
+                            type="text"
+                            placeholder="Bairro"
+                            [(ngModel)]="address.district"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-4">
+                        <label for="city">Cidade</label>
+                        <input
+                            id="city"
+                            name="city"
+                            type="text"
+                            placeholder="Cidade"
+                            [(ngModel)]="address.city"
+                            required
+                        />
+                    </div>
+
+                    <div class="field span-2">
+                        <label for="state">Estado</label>
+                        <select id="state" name="state" [(ngModel)]="address.state" required>
+                            <option value="">Selecione o estado</option>
+                            <option value="SP">SP</option>
+                            <option value="RJ">RJ</option>
+                            <option value="MG">MG</option>
+                            <option value="PR">PR</option>
+                            <option value="SC">SC</option>
+                            <option value="RS">RS</option>
+                        </select>
+                    </div>
+                </div>
+
+                @if (submitted && checkoutForm.invalid) {
+                    <p class="form-error">Preencha os dados obrigatorios para continuar.</p>
+                }
+            </section>
+
+            <!-- Metodo de envio: altera o valor final do pedido. -->
+            <section class="form-panel">
+                <h2 class="section-title">
+                    <span aria-hidden="true">&#128666;</span> Metodo de Envio
+                </h2>
+
+                <div class="shipping-options">
+                    @for (method of store.shippingMethods; track method.id) {
+                        <label
+                            class="shipping-option"
+                            [class.selected]="store.selectedShippingId() === method.id"
+                        >
+                            <input
+                                type="radio"
+                                name="shipping"
+                                [value]="method.id"
+                                [ngModel]="store.selectedShippingId()"
+                                (ngModelChange)="store.selectShipping($event)"
+                            />
+                            <span></span>
+                            <b>
+                                {{ method.name }}
+                                <small>{{ method.details }}</small>
+                            </b>
+                            <strong>
+                                {{
+                                    method.price === 0
+                                        ? 'Gratis'
+                                        : store.formatCurrency(method.price)
+                                }}
+                            </strong>
+                        </label>
+                    }
+                </div>
+            </section>
+        </form>
+
+        <!-- Resumo lateral: repete produtos, frete e total antes de avancar. -->
+        <aside class="summary-card compact" aria-label="Resumo do pedido">
+            <h2>Resumo do Pedido</h2>
+
+            <div class="summary-products">
+                @for (item of store.items(); track item.id) {
+                    <article class="summary-product">
+                        <img [src]="item.image" [alt]="item.name" />
+                        <div>
+                            <h3>{{ item.name }}</h3>
+                            <small>Qtd: {{ item.quantity }}</small>
+                        </div>
+                        <strong>{{ store.formatCurrency(item.price * item.quantity) }}</strong>
+                    </article>
+                }
+            </div>
+
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <strong>{{ store.formatCurrency(store.subtotal()) }}</strong>
+            </div>
+            <div class="summary-line">
+                <span>Frete</span>
+                <strong class="free">
+                    {{
+                        store.shippingTotal() === 0
+                            ? 'Gratis'
+                            : store.formatCurrency(store.shippingTotal())
+                    }}
+                </strong>
+            </div>
+            <div class="summary-line">
+                <span>Desconto</span>
+                <strong class="discount">-{{ store.formatCurrency(store.discount()) }}</strong>
+            </div>
+            <div class="summary-total">
+                <span>Total</span>
+                <strong>{{ store.formatCurrency(store.total()) }}</strong>
+            </div>
+
+            <button
+                class="primary-action summary-submit"
+                type="button"
+                (click)="continueToPayment(checkoutForm.valid)"
+            >
+                COMPRAR AGORA &rarr;
+            </button>
+            <p class="secure-note">&#128274; Compra 100% Segura</p>
+        </aside>
+    </section>
+</main>
+
+<!-- Rodape operacional compartilhado entre as paginas de compra. -->
+<app-trust-strip></app-trust-strip>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

@@ -106,7 +106,22 @@
                 <h3>Fone de ouvido Bluetooth Premium</h3>
                 <del>R$ 299,90</del>
                 <strong>R$ 179,90</strong>
-                <button aria-label="Adicionar fone ao carrinho">🛒</button>
+                <button
+                    type="button"
+                    aria-label="Adicionar fone ao carrinho"
+                    (click)="
+                        adicionarAoCarrinho(
+                            $event,
+                            'fone-bluetooth-premium',
+                            '/controle2.png',
+                            'Fone de ouvido Bluetooth Premium',
+                            179.9,
+                            'Som premium com bateria de longa duracao.'
+                        )
+                    "
+                >
+                    &#128722;
+                </button>
             </article>
 
             <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
@@ -114,7 +129,22 @@
                 <h3>Smartwatch com monitor de saúde</h3>
                 <del>R$ 499,90</del>
                 <strong>R$ 359,90</strong>
-                <button aria-label="Adicionar relógio ao carrinho">🛒</button>
+                <button
+                    type="button"
+                    aria-label="Adicionar relogio ao carrinho"
+                    (click)="
+                        adicionarAoCarrinho(
+                            $event,
+                            'smartwatch-saude',
+                            '/notebook2.png',
+                            'Smartwatch com monitor de saude',
+                            359.9,
+                            'Monitor cardiaco e modos esportivos.'
+                        )
+                    "
+                >
+                    &#128722;
+                </button>
             </article>
 
             <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
@@ -122,7 +152,22 @@
                 <h3>Smartphone com tela de alta definição</h3>
                 <del>R$ 1.999,90</del>
                 <strong>R$ 1.499,90</strong>
-                <button aria-label="Adicionar celular ao carrinho">🛒</button>
+                <button
+                    type="button"
+                    aria-label="Adicionar celular ao carrinho"
+                    (click)="
+                        adicionarAoCarrinho(
+                            $event,
+                            'smartphone-hd-destaque',
+                            '/celular2.png',
+                            'Smartphone com tela de alta definicao',
+                            1499.9,
+                            'Tela nitida e bateria para o dia todo.'
+                        )
+                    "
+                >
+                    &#128722;
+                </button>
             </article>
 
             <article class="product-card" routerLink="/detalhes-produto" tabindex="0">
@@ -130,7 +175,22 @@
                 <h3>Caixa de som Bluetooth portátil</h3>
                 <del>R$ 249,90</del>
                 <strong>R$ 179,90</strong>
-                <button aria-label="Adicionar caixa de som ao carrinho">🛒</button>
+                <button
+                    type="button"
+                    aria-label="Adicionar caixa de som ao carrinho"
+                    (click)="
+                        adicionarAoCarrinho(
+                            $event,
+                            'caixa-som-portatil',
+                            '/controle2.png',
+                            'Caixa de som Bluetooth portatil',
+                            179.9,
+                            'Audio potente em formato compacto.'
+                        )
+                    "
+                >
+                    &#128722;
+                </button>
             </article>
         </div>
     </section>

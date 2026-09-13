@@ -1,85 +1,221 @@
-/* Bloco de cadastro de e-mail. */
 .newsletter {
+    /* Faixa azul com chamada, formulario e redes sociais. */
+    position: relative;
+    min-height: 106px;
     padding: 26px var(--section-pad);
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(300px, 420px) minmax(128px, 1fr);
     align-items: center;
-    justify-content: space-between;
     gap: 24px;
     background: var(--color-brand-panel);
     color: #fff;
 }
 
-/* Marca e chamada principal. */
-.newsletter-brand {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-.newsletter-brand img {
-    width: 145px;
-    height: 62px;
-    object-fit: contain;
-}
-
 .newsletter h2 {
     margin: 0;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .newsletter p {
     margin: 5px 0 0;
     color: #bbb8d5;
-    font-size: 9px;
+    font-size: 10px;
+    line-height: 1.45;
 }
 
-/* Formulário com campo e botão unidos. */
 .newsletter form {
-    min-width: 310px;
+    /* Campo e botao ficam lado a lado no desktop. */
     display: flex;
+    gap: 8px;
 }
 
 .newsletter input {
     min-width: 0;
+    height: 38px;
     flex: 1;
-    padding: 11px;
+    padding: 0 14px;
     border: 0;
-    border-radius: 6px 0 0 6px;
+    border-radius: var(--radius-sm);
     font-size: 10px;
 }
 
 .newsletter button {
-    padding: 0 15px;
+    position: relative;
+    height: 38px;
+    padding: 0 19px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 0;
-    border-radius: 0 6px 6px 0;
+    border-radius: var(--radius-sm);
     background: var(--color-accent);
     color: #fff;
     font-size: 9px;
     font-weight: 800;
+    overflow: hidden;
+    box-shadow: 0 9px 18px rgba(11, 8, 48, 0.2);
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
-/* Empilha a chamada e o formulário em telas pequenas. */
+.newsletter button::before {
+    content: '';
+    position: absolute;
+    inset: -1px auto -1px -70%;
+    width: 52%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transform: skewX(-18deg);
+    animation: newsletter-button-shine 3.4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.newsletter button::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: calc(var(--radius-sm) - 2px);
+    opacity: 0;
+    animation: newsletter-button-pulse 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.newsletter button:hover {
+    background: #ff6b55;
+    box-shadow: 0 13px 24px rgba(11, 8, 48, 0.3);
+    transform: translateY(-2px);
+}
+
+.social-links {
+    /* Lista compacta de redes sociais no lado direito. */
+    display: flex;
+    justify-content: flex-end;
+    gap: 11px;
+}
+
+.social-links a {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    text-decoration: none;
+    animation: newsletter-social-glow 4.2s ease-in-out infinite;
+    transition:
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.social-links a:nth-child(2) {
+    animation-delay: -0.8s;
+}
+
+.social-links a:nth-child(3) {
+    animation-delay: -1.6s;
+}
+
+.social-links a:nth-child(4) {
+    animation-delay: -2.4s;
+}
+
+.social-links a:hover {
+    background: #fff;
+    color: var(--color-brand-panel);
+    box-shadow: 0 9px 18px rgba(11, 8, 48, 0.24);
+    transform: translateY(-4px) rotate(-8deg) scale(1.08);
+}
+
+.newsletter-message {
+    position: absolute;
+    left: var(--section-pad);
+    bottom: 8px;
+    margin: 0;
+    color: #fff;
+}
+
+@keyframes newsletter-button-shine {
+    0%,
+    54% {
+        left: -70%;
+    }
+
+    84%,
+    100% {
+        left: 124%;
+    }
+}
+
+@keyframes newsletter-button-pulse {
+    0%,
+    100% {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes newsletter-social-glow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    }
+
+    50% {
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.22);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .newsletter button::before,
+    .newsletter button::after,
+    .social-links a {
+        animation: none;
+    }
+
+    .newsletter button,
+    .social-links a {
+        transition: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .newsletter {
+        grid-template-columns: 1fr;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+}
+
 @media (max-width: 600px) {
     .newsletter {
         padding: 25px 20px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .newsletter-brand {
-        gap: 11px;
-    }
-
-    .newsletter-brand img {
-        width: 110px;
     }
 
     .newsletter h2 {
-        font-size: 13px;
+        font-size: 15px;
     }
 
     .newsletter form {
         width: 100%;
-        min-width: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .newsletter-message {
+        position: static;
     }
 }

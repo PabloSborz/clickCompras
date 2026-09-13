@@ -1,1 +1,140 @@
-<p>confirmacao works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+
+<main class="purchase-page confirmation-page">
+    <!-- Breadcrumb: final do fluxo de compra. -->
+    <nav class="breadcrumbs">
+        <a routerLink="/">Home</a>
+        <span>&gt;</span>
+        <a routerLink="/carrinho">Carrinho</a>
+        <span>&gt;</span>
+        <a routerLink="/checkout">Checkout</a>
+        <span>&gt;</span>
+        <strong>Confirmacao</strong>
+    </nav>
+
+    <!-- Stepper com as etapas anteriores concluidas. -->
+    <div class="checkout-heading">
+        <h1>Finalizar Compra</h1>
+
+        <ol class="flow-stepper" aria-label="Etapas do checkout">
+            <li class="done"><b>&check;</b> Dados Pessoais</li>
+            <li class="done"><b>&check;</b> Pagamento</li>
+            <li class="active"><b>3</b> Confirma&ccedil;&atilde;o</li>
+        </ol>
+    </div>
+
+    <!-- Mensagem principal de sucesso do pedido. -->
+    <section class="success-state">
+        <div class="success-icon" aria-hidden="true">&check;</div>
+        <h2>Pedido Confirmado!</h2>
+        <p>Obrigado pela sua compra! Seu pedido foi recebido com sucesso.</p>
+    </section>
+
+    <!-- Cards de detalhes do pedido e resumo da compra. -->
+    <section class="confirmation-grid">
+        <div class="details-column">
+            <article class="confirmation-card">
+                <h2>Detalhes do Pedido</h2>
+                <dl>
+                    <div>
+                        <dt>Numero do Pedido</dt>
+                        <dd>{{ store.orderNumber() }}</dd>
+                    </div>
+                    <div>
+                        <dt>Data</dt>
+                        <dd>{{ store.orderDate() }}</dd>
+                    </div>
+                    <div>
+                        <dt>Metodo de Pagamento</dt>
+                        <dd>{{ paymentLabel() }}</dd>
+                    </div>
+                    <div>
+                        <dt>Status</dt>
+                        <dd class="approved">Aprovado</dd>
+                    </div>
+                </dl>
+                <div class="paid-total">
+                    <span>Total Pago</span>
+                    <strong>{{ store.formatCurrency(store.total()) }}</strong>
+                </div>
+            </article>
+
+            <article class="confirmation-card delivery-card">
+                <h2><span aria-hidden="true">&#128666;</span> Previsao de Entrega</h2>
+                <strong>{{ store.selectedShipping().details }}</strong>
+                <small>
+                    {{
+                        store.shippingTotal() === 0
+                            ? 'Frete Gratis'
+                            : store.formatCurrency(store.shippingTotal())
+                    }}
+                </small>
+                <p>
+                    <b>Endereco de entrega</b>
+                    {{ store.address().street || 'Rua das Flores' }},
+                    {{ store.address().number || '123' }} -
+                    {{ store.address().city || 'Sao Paulo' }}, {{ store.address().state || 'SP' }} -
+                    CEP
+                    {{ store.address().cep || '01234-567' }}
+                </p>
+            </article>
+        </div>
+
+        <aside class="summary-card compact" aria-label="Resumo da compra">
+            <h2>Resumo da Compra</h2>
+
+            <div class="summary-products">
+                @for (item of store.items(); track item.id) {
+                    <article class="summary-product">
+                        <img [src]="item.image" [alt]="item.name" />
+                        <div>
+                            <h3>{{ item.name }}</h3>
+                            <small>Qtd: {{ item.quantity }}</small>
+                        </div>
+                        <strong>{{ store.formatCurrency(item.price * item.quantity) }}</strong>
+                    </article>
+                }
+            </div>
+
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <strong>{{ store.formatCurrency(store.subtotal()) }}</strong>
+            </div>
+            <div class="summary-line">
+                <span>Frete</span>
+                <strong class="free">
+                    {{
+                        store.shippingTotal() === 0
+                            ? 'Gratis'
+                            : store.formatCurrency(store.shippingTotal())
+                    }}
+                </strong>
+            </div>
+            <div class="summary-total">
+                <span>Total Geral</span>
+                <strong>{{ store.formatCurrency(store.total()) }}</strong>
+            </div>
+        </aside>
+    </section>
+
+    <!-- Acoes posteriores ao pedido. -->
+    <div class="confirmation-actions">
+        <button class="primary-action" type="button" (click)="showTracking()">
+            ACOMPANHAR PEDIDO
+        </button>
+        <a class="outline-action" routerLink="/catalogo">CONTINUAR COMPRANDO</a>
+    </div>
+
+    <!-- Mensagem simulada de rastreamento. -->
+    @if (trackingVisible()) {
+        <p class="tracking-message" aria-live="polite">
+            Pedido {{ store.orderNumber() }} em separacao. Voce recebera novidades por e-mail.
+        </p>
+    }
+</main>
+
+<!-- Rodape padrao da loja. -->
+<app-trust-strip></app-trust-strip>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

@@ -1,1 +1,139 @@
-<p>carrinho works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+
+<main class="purchase-page cart-page">
+    <!-- Breadcrumb: indica que o usuario esta no carrinho. -->
+    <nav class="breadcrumbs">
+        <a routerLink="/">Home</a>
+        <span>&gt;</span>
+        <strong>Meu Carrinho</strong>
+    </nav>
+
+    <!-- Titulo e contador de linhas de produto. -->
+    <div class="checkout-heading">
+        <h1>
+            Meu Carrinho <span>({{ store.cartCount() }} itens)</span>
+        </h1>
+    </div>
+
+    @if (store.items().length > 0) {
+        <!-- Layout principal: produtos a esquerda e resumo a direita. -->
+        <section class="cart-layout">
+            <div class="cart-list">
+                <!-- Cabecalho da tabela de itens no desktop. -->
+                <div class="cart-table-head">
+                    <span>Produto</span>
+                    <span>Pre&ccedil;o</span>
+                    <span>Quantidade</span>
+                    <span>Subtotal</span>
+                    <span></span>
+                </div>
+
+                <div class="cart-items">
+                    @for (item of store.items(); track item.id) {
+                        <!-- Linha de produto com quantidade editavel e botao remover. -->
+                        <article class="cart-row">
+                            <div class="product-info">
+                                <img [src]="item.image" [alt]="item.name" />
+                                <div>
+                                    <h2>{{ item.name }}</h2>
+                                    <p>{{ item.description }}</p>
+                                </div>
+                            </div>
+
+                            <strong class="price">{{ store.formatCurrency(item.price) }}</strong>
+
+                            <div class="quantity-control" aria-label="Quantidade">
+                                <button
+                                    type="button"
+                                    (click)="store.decrease(item.id)"
+                                    [disabled]="item.quantity === 1"
+                                    [attr.aria-label]="'Diminuir quantidade de ' + item.name"
+                                >
+                                    -
+                                </button>
+                                <b>{{ item.quantity }}</b>
+                                <button
+                                    type="button"
+                                    (click)="store.increase(item.id)"
+                                    [attr.aria-label]="'Aumentar quantidade de ' + item.name"
+                                >
+                                    +
+                                </button>
+                            </div>
+
+                            <strong class="subtotal">
+                                {{ store.formatCurrency(item.price * item.quantity) }}
+                            </strong>
+
+                            <button
+                                class="remove-item"
+                                type="button"
+                                (click)="store.removeItem(item.id)"
+                                [attr.aria-label]="'Remover ' + item.name"
+                            >
+                                &times;
+                            </button>
+                        </article>
+                    }
+                </div>
+
+                <!-- Acoes secundarias abaixo da lista de produtos. -->
+                <div class="cart-actions">
+                    <button class="secondary-action" type="button" (click)="store.clearCart()">
+                        ESVAZIAR CARRINHO
+                    </button>
+
+                    <a class="continue-link" routerLink="/catalogo">Continuar Comprando &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Card de resumo calculado pelo CheckoutStore. -->
+            <aside class="summary-card cart-summary" aria-label="Resumo do pedido">
+                <h2>Resumo do Pedido</h2>
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <strong>{{ store.formatCurrency(store.subtotal()) }}</strong>
+                </div>
+                <div class="summary-line">
+                    <span>Entrega</span>
+                    <strong class="free">
+                        {{
+                            store.shippingTotal() === 0
+                                ? 'Gratis'
+                                : store.formatCurrency(store.shippingTotal())
+                        }}
+                    </strong>
+                </div>
+                <div class="summary-line">
+                    <span>Desconto</span>
+                    <strong class="discount">-{{ store.formatCurrency(store.discount()) }}</strong>
+                </div>
+                <div class="summary-total">
+                    <span>Total</span>
+                    <strong>{{ store.formatCurrency(store.total()) }}</strong>
+                </div>
+
+                <a class="primary-action checkout-button" routerLink="/checkout">
+                    FINALIZAR COMPRA &rarr;
+                </a>
+                <p class="secure-note">&#128274; Compra 100% Segura</p>
+            </aside>
+        </section>
+    } @else {
+        <!-- Estado vazio exibido depois que o carrinho e limpo. -->
+        <section class="empty-state">
+            <h2>Seu carrinho esta vazio</h2>
+            <p>Adicione produtos para continuar a compra.</p>
+            <button class="primary-action" type="button" (click)="store.restoreCart()">
+                RESTAURAR CARRINHO
+            </button>
+            <a class="secondary-action" routerLink="/catalogo">VER PRODUTOS</a>
+        </section>
+    }
+</main>
+
+<!-- Secoes compartilhadas de beneficios, newsletter e rodape. -->
+<app-trust-strip></app-trust-strip>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

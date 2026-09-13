@@ -1,59 +1,489 @@
-/* Tokens compartilhados de cor, largura e efeitos. */
 :root {
+    /* Tokens visuais globais: cores, larguras, raios e sombras. */
     --color-brand: #302995;
     --color-brand-strong: #2e277d;
     --color-brand-dark: #1e1955;
     --color-brand-panel: #292365;
     --color-brand-footer: #17134a;
     --color-accent: #ff593f;
+    --color-success: #28c993;
     --color-page: #f7f7fa;
     --color-page-soft: #f5f5f7;
     --color-surface: #fff;
     --color-surface-soft: #f8f8fb;
+    --color-card: #f2f2f5;
     --color-border: #e2e1e9;
     --color-text: #292640;
     --color-text-heading: #20203a;
     --color-text-soft: #77738e;
     --color-muted: #8d8a9a;
-    --content-width: 1320px;
-    --section-pad: max(8%, calc((100% - 1160px) / 2));
+    --content-width: 1280px;
+    --section-pad: max(7%, calc((100% - 1160px) / 2));
     --radius-sm: 5px;
     --radius-md: 8px;
     --shadow-soft: 0 4px 12px rgba(34, 28, 107, 0.05);
     --shadow-hover: 0 12px 22px rgba(34, 28, 107, 0.16);
 }
 
-/* Reset simples para manter o cálculo de tamanho previsível. */
 * {
+    /* Evita que padding e borda alterem a largura final dos elementos. */
     box-sizing: border-box;
 }
 
-/* Base da página e rolagem suave para âncoras internas. */
 html {
+    /* Suaviza navegacao por ancoras internas. */
     scroll-behavior: smooth;
 }
 
 body {
+    /* Base tipografica e cor de fundo do site inteiro. */
     min-width: 320px;
+    min-height: 100vh;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: var(--color-page-soft);
     color: #222;
 }
 
-/* Imagens se ajustam ao espaço disponível sem criar overflow. */
 img {
+    /* Imagens nunca ultrapassam o tamanho do container. */
     display: block;
     max-width: 100%;
 }
 
-/* Campos e botões herdam a tipografia da página. */
+a {
+    color: inherit;
+}
+
 button,
-input {
+input,
+select,
+textarea {
+    /* Campos e botoes herdam a fonte global. */
     font: inherit;
 }
 
-/* Botões sempre indicam interação. */
 button {
+    /* Mantem cursor de clique nos botoes. */
     cursor: pointer;
+}
+
+.purchase-page {
+    /* Layout base das paginas de carrinho, checkout, pagamento e confirmacao. */
+    max-width: var(--content-width);
+    min-height: 520px;
+    margin: auto;
+    padding: 24px 40px 70px;
+    background: #fff;
+    color: var(--color-text);
+}
+
+.breadcrumbs {
+    /* Breadcrumb compartilhado nas paginas internas. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-muted);
+    font-size: 10px;
+}
+
+.breadcrumbs a {
+    color: #7b778c;
+    text-decoration: none;
+}
+
+.breadcrumbs strong,
+.breadcrumbs span:last-child {
+    color: #25233b;
+    font-weight: 800;
+}
+
+.checkout-heading {
+    /* Linha de titulo e stepper nas telas de compra. */
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.checkout-heading h1,
+.purchase-page h1 {
+    margin: 0;
+    color: #171724;
+    font-size: 22px;
+    letter-spacing: 0;
+}
+
+.checkout-heading h1 span {
+    color: var(--color-muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.flow-stepper {
+    /* Indicador de etapas do checkout. */
+    min-width: min(100%, 390px);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    list-style: none;
+}
+
+.flow-stepper li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #a5a3ad;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.flow-stepper li + li::before {
+    content: '';
+    width: 34px;
+    height: 1px;
+    margin-right: 2px;
+    background: #dbd9e3;
+}
+
+.flow-stepper b {
+    width: 16px;
+    height: 16px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #bfc0c8;
+    color: #fff;
+    font-size: 8px;
+}
+
+.flow-stepper .active,
+.flow-stepper .done {
+    color: var(--color-accent);
+}
+
+.flow-stepper .done {
+    color: var(--color-success);
+}
+
+.flow-stepper .active b {
+    background: var(--color-accent);
+}
+
+.flow-stepper .done b {
+    background: var(--color-success);
+}
+
+.summary-card {
+    /* Card cinza usado para resumos de pedido. */
+    align-self: start;
+    padding: 24px;
+    border-radius: var(--radius-md);
+    background: #f2f2f5;
+}
+
+.summary-card.compact {
+    padding: 20px;
+}
+
+.summary-card h2 {
+    margin: 0 0 20px;
+    color: #22202d;
+    font-size: 16px;
+}
+
+.summary-products {
+    /* Lista compacta de produtos dentro dos resumos. */
+    display: grid;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.summary-product {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-product img {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: #fff;
+}
+
+.summary-product h3 {
+    margin: 0;
+    color: #262431;
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+.summary-product small {
+    display: block;
+    margin-top: 3px;
+    color: #8f8b9d;
+    font-size: 8px;
+}
+
+.summary-product strong {
+    color: #171724;
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.summary-line,
+.summary-total {
+    /* Linhas de subtotal, frete, desconto e total. */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    color: #757183;
+    font-size: 10px;
+}
+
+.summary-line + .summary-line {
+    margin-top: 10px;
+}
+
+.summary-line strong {
+    color: #191724;
+}
+
+.summary-line .free,
+.summary-line .discount {
+    color: #0ca66f;
+    font-weight: 800;
+}
+
+.summary-total {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #dedde6;
+    color: #171724;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.summary-total strong {
+    font-size: 24px;
+}
+
+.secure-note {
+    margin: 16px 0 0;
+    color: #77738e;
+    font-size: 9px;
+    text-align: center;
+}
+
+.primary-action,
+.secondary-action,
+.outline-action {
+    /* Padrao visual dos botoes principais e secundarios. */
+    min-height: 36px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.primary-action {
+    border: 1px solid var(--color-accent);
+    background: var(--color-accent);
+    color: #fff;
+}
+
+.secondary-action {
+    border: 1px solid var(--color-brand);
+    background: #fff;
+    color: var(--color-brand);
+}
+
+.outline-action {
+    border: 1px solid var(--color-accent);
+    background: #fff;
+    color: var(--color-accent);
+}
+
+.form-panel {
+    /* Card branco usado para formularios do checkout e pagamento. */
+    padding: 20px;
+    border: 1px solid #dedde6;
+    border-radius: var(--radius-md);
+    background: #fff;
+}
+
+.form-panel + .form-panel {
+    margin-top: 20px;
+}
+
+.section-title {
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #171724;
+    font-size: 13px;
+}
+
+.section-title span {
+    color: var(--color-brand);
+    font-size: 14px;
+}
+
+.field-grid {
+    /* Grade de seis colunas para campos de formulario. */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.field {
+    /* Campo individual com label e input/select. */
+    display: grid;
+    gap: 6px;
+}
+
+.field.span-1 {
+    grid-column: span 1;
+}
+
+.field.span-2 {
+    grid-column: span 2;
+}
+
+.field.span-3 {
+    grid-column: span 3;
+}
+
+.field.span-4 {
+    grid-column: span 4;
+}
+
+.field.span-6 {
+    grid-column: span 6;
+}
+
+.field label {
+    color: #363344;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    height: 34px;
+    padding: 0 12px;
+    border: 1px solid #e2e1e9;
+    border-radius: var(--radius-sm);
+    outline: 0;
+    background: #f4f4f6;
+    color: #302e3d;
+    font-size: 10px;
+}
+
+.field input:focus,
+.field select:focus {
+    border-color: var(--color-brand);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(48, 41, 149, 0.1);
+}
+
+.form-error {
+    margin: 14px 0 0;
+    color: var(--color-accent);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.empty-state {
+    margin-top: 36px;
+    padding: 50px 24px;
+    border: 1px dashed #d6d3e4;
+    border-radius: var(--radius-md);
+    background: #fafafa;
+    text-align: center;
+}
+
+.empty-state h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+.empty-state p {
+    margin: 0 0 18px;
+    color: var(--color-text-soft);
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .purchase-page {
+        padding: 22px 24px 54px;
+    }
+
+    .checkout-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .flow-stepper {
+        width: 100%;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .summary-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    .purchase-page {
+        padding: 18px 20px 42px;
+    }
+
+    .checkout-heading h1,
+    .purchase-page h1 {
+        font-size: 19px;
+    }
+
+    .flow-stepper {
+        gap: 10px;
+    }
+
+    .flow-stepper li + li::before {
+        width: 18px;
+    }
+
+    .field-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.span-1,
+    .field.span-2,
+    .field.span-3,
+    .field.span-4,
+    .field.span-6 {
+        grid-column: auto;
+    }
+
+    .summary-total strong {
+        font-size: 20px;
+    }
 }

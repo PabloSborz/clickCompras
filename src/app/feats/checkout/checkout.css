@@ -1,1 +1,105 @@
-/* Estilos da tela de checkout serão concentrados aqui. */
+:host {
+    /* Fundo branco para integrar checkout ao header e rodape. */
+    display: block;
+    background: #fff;
+}
+
+.checkout-layout {
+    /* Formulario maior a esquerda e resumo fixo a direita. */
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 24px;
+}
+
+.checkout-form {
+    min-width: 0;
+}
+
+.shipping-options {
+    /* Lista vertical das opcoes de frete. */
+    display: grid;
+    gap: 10px;
+}
+
+.shipping-option {
+    /* Card clicavel de cada metodo de envio. */
+    min-height: 50px;
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 16px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #dedde6;
+    border-radius: var(--radius-sm);
+    color: #272530;
+    cursor: pointer;
+}
+
+.shipping-option.selected {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px rgba(255, 89, 63, 0.18);
+}
+
+.shipping-option input {
+    width: 14px;
+    height: 14px;
+    accent-color: var(--color-accent);
+}
+
+.shipping-option span {
+    display: none;
+}
+
+.shipping-option b {
+    display: grid;
+    gap: 3px;
+    font-size: 10px;
+}
+
+.shipping-option small {
+    color: #858193;
+    font-size: 9px;
+    font-weight: 400;
+}
+
+.shipping-option strong {
+    color: #171724;
+    font-size: 10px;
+}
+
+.shipping-option.selected strong {
+    color: #0ca66f;
+}
+
+.summary-submit {
+    /* Botao do resumo que dispara a mesma validacao do formulario. */
+    width: 132px;
+    margin-top: 18px;
+}
+
+@media (max-width: 980px) {
+    /* Em telas menores o resumo fica abaixo do formulario. */
+    .checkout-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card {
+        width: 100%;
+        max-width: 460px;
+    }
+}
+
+@media (max-width: 640px) {
+    .shipping-option {
+        grid-template-columns: 16px 1fr;
+    }
+
+    .shipping-option strong {
+        grid-column: 2;
+    }
+
+    .summary-submit {
+        width: 100%;
+    }
+}

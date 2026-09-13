@@ -1,42 +1,79 @@
-<!-- Cabeçalho principal com logo, busca, conta e carrinho. -->
 <header class="header">
-    <a class="logo" href="#inicio" aria-label="Click Compras - início">
+    <!-- Logo principal: sempre volta para a pagina inicial. -->
+    <a class="logo" routerLink="/" aria-label="Click Compras - inicio">
         <span class="logo-icon">
-            <img src="/logoSemfundo.png" alt="Logo" />
+            <img src="/logoSemfundo.png" alt="Click Compras" />
         </span>
     </a>
 
-    <!-- Campo central de busca de produtos. -->
-    <label class="search-container" aria-label="Buscar produtos">
+    <!-- Botao personalizado: abre categorias e envia o filtro para o catalogo. -->
+    <div class="category-menu" [class.open]="categoriesOpen" (keydown.escape)="closeCategories()">
+        <button
+            class="category-trigger"
+            type="button"
+            aria-haspopup="menu"
+            [attr.aria-expanded]="categoriesOpen"
+            (click)="toggleCategories()"
+        >
+            <span class="category-icon" aria-hidden="true">&#9776;</span>
+            <span class="category-label">
+                <small>Comprar por</small>
+                <b>Categorias</b>
+            </span>
+        </button>
+
+        @if (categoriesOpen) {
+            <div class="category-dropdown" role="menu">
+                @for (category of categories; track category.id) {
+                    <button type="button" role="menuitem" (click)="openCategory(category.id)">
+                        <span aria-hidden="true">{{ category.icon }}</span>
+                        <b>
+                            {{ category.label }}
+                            <small>{{ category.description }}</small>
+                        </b>
+                    </button>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Busca central: leva o texto digitado para a tela de catalogo. -->
+    <form class="search-container" role="search" (ngSubmit)="search()">
         <span class="search-icon" aria-hidden="true"></span>
         <input
             class="search-input"
+            name="search"
             type="search"
             placeholder="Buscar produtos, marcas e muito mais..."
+            [(ngModel)]="searchTerm"
         />
-        <button class="search-button" type="button" aria-label="Buscar">
+        <button class="search-button" type="submit" aria-label="Buscar">
             <span class="search-button-icon" aria-hidden="true"></span>
         </button>
-    </label>
+    </form>
 
-    <!-- Atalho para conta do usuário. -->
-    <a class="user" href="#conta">
-        <span class="user-icon" aria-hidden="true">♙</span>
+    <!-- Atalho da conta: depois do login mostra o nome salvo no store. -->
+    <a class="user" routerLink="/login">
+        <span class="user-icon" aria-hidden="true">&#9812;</span>
         <span class="user-text">
-            <small>Olá, faça seu login</small>
-            <strong>Conta</strong>
+            <small>{{
+                store.customerName() ? 'Ola, ' + store.customerName() : 'Ola, faca seu login'
+            }}</small>
+            <strong>Minha Conta</strong>
         </span>
     </a>
 
-    <!-- Atalho para carrinho com contador. -->
-    <a class="cart" href="#carrinho">
+    <!-- Atalho do carrinho: quantidade e total sao calculados no CheckoutStore. -->
+    <a class="cart" routerLink="/carrinho">
         <span class="cart-icon" aria-hidden="true">
-            🛒
-            <span class="cart-count">0</span>
+            &#128722;
+            @if (store.cartCount() > 0) {
+                <span class="cart-count">{{ store.cartCount() }}</span>
+            }
         </span>
         <span class="cart-text">
             <small>Meu carrinho</small>
-            <strong>R$ 1.849,90</strong>
+            <strong>{{ store.formatCurrency(store.total()) }}</strong>
         </span>
     </a>
 </header>

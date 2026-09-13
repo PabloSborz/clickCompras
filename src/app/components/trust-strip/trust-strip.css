@@ -1,0 +1,60 @@
+:host {
+    display: block;
+}
+
+.trust-strip {
+    /* Grade horizontal com beneficios de frete, troca e seguranca. */
+    min-height: 92px;
+    padding: 0 var(--section-pad);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: 24px;
+    background: #f0f1f5;
+}
+
+.trust-strip article {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.trust-strip span {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-brand);
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(29, 22, 112, 0.08);
+}
+
+.trust-strip div {
+    display: grid;
+    gap: 3px;
+}
+
+.trust-strip strong {
+    color: #25233b;
+    font-size: 10px;
+}
+
+.trust-strip small {
+    color: #77738c;
+    font-size: 9px;
+}
+
+@media (max-width: 720px) {
+    .trust-strip {
+        padding: 18px 20px;
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+
+    .trust-strip article {
+        justify-content: flex-start;
+    }
+}

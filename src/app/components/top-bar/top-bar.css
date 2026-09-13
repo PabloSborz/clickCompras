@@ -1,26 +1,65 @@
-/* Faixa superior com mensagens rápidas e links de apoio. */
 .top-bar {
+    /* Barra fina acima do header principal. */
     background: var(--color-brand-dark);
     color: #fff;
     font-size: 10px;
 }
 
-/* Conteúdo centralizado no mesmo limite visual do header. */
 .top-bar > div {
+    /* Alinha o conteudo ao mesmo limite horizontal do site. */
     max-width: var(--content-width);
     margin: auto;
-    padding: 7px 28px;
+    padding: 7px 40px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    gap: 18px;
 }
 
-/* No mobile fica apenas a mensagem principal de frete. */
+.top-bar span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.top-bar b {
+    color: var(--color-accent);
+    font-size: 11px;
+}
+
+.top-bar nav {
+    /* Links auxiliares no canto direito. */
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.top-bar a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+}
+
+.top-bar a + a {
+    position: relative;
+}
+
+.top-bar a + a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -9px;
+    width: 1px;
+    height: 9px;
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-50%);
+}
+
 @media (max-width: 600px) {
     .top-bar > div {
         padding: 7px 20px;
     }
 
-    .top-bar > div span:last-child {
+    .top-bar nav {
         display: none;
     }
 }

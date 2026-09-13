@@ -2,79 +2,209 @@
 <app-header></app-header>
 
 <main class="catalogo-page">
-    <!-- Identificação da página e total de produtos. -->
-    <div class="breadcrumbs">Início <span>›</span> Catálogo</div>
-    <h1>Catálogo</h1>
-    <p class="resultados">
-        128 produtos encontrados
-        <span>Ordenar por: <b>Mais relevantes</b></span>
-    </p>
+    <!-- Breadcrumb: mostra onde o usuario esta dentro do site. -->
+    <div class="breadcrumbs">Inicio <span>&gt;</span> Catalogo</div>
+
+    <!-- Cabecalho do catalogo com total real e ordenacao funcional. -->
+    <header class="catalogo-heading">
+        <div>
+            <h1>Catalogo</h1>
+            <p class="resultados">
+                {{ produtosFiltrados.length }} de {{ produtos.length }} produtos encontrados
+            </p>
+        </div>
+
+        <label class="sort-control">
+            Ordenar por
+            <select name="sortOption" [(ngModel)]="sortOption" (ngModelChange)="applyFilters()">
+                <option value="relevantes">Mais relevantes</option>
+                <option value="menor-preco">Menor preco</option>
+                <option value="maior-preco">Maior preco</option>
+                <option value="nome">Nome</option>
+            </select>
+        </label>
+    </header>
 
     <div class="catalogo-layout">
-        <!-- Filtros laterais do catálogo. -->
-        <aside class="filtros">
+        <!-- Filtros: cada controle atualiza a lista renderizada. -->
+        <aside class="filtros" aria-label="Filtros do catalogo">
             <div class="filter-title">
-                <h2>Filtros</h2>
-                <button type="button">Limpar filtros</button>
+                <div>
+                    <h2>Filtros</h2>
+                    <span>{{ produtosFiltrados.length }} resultados</span>
+                </div>
+                <button type="button" (click)="clearFilters()">Limpar filtros</button>
             </div>
 
             <section>
-                <h3>Categorias</h3>
-                <label><input type="checkbox" /> Eletrônicos</label>
-                <label><input type="checkbox" /> Celulares</label>
-                <label><input type="checkbox" /> Informática</label>
-                <label><input type="checkbox" /> Games</label>
-                <label><input type="checkbox" /> Moda</label>
+                <h3>Buscar</h3>
+                <input
+                    class="filter-search"
+                    type="search"
+                    name="catalogSearch"
+                    placeholder="Produto, marca..."
+                    [(ngModel)]="searchTerm"
+                    (ngModelChange)="applyFilters()"
+                />
             </section>
 
             <section>
-                <h3>Preço</h3>
+                <h3>Categorias</h3>
+                @for (categoria of categorias; track categoria.id) {
+                    <label>
+                        <input
+                            type="checkbox"
+                            [checked]="isCategorySelected(categoria.id)"
+                            (change)="toggleCategory(categoria.id, $event)"
+                        />
+                        {{ categoria.label }}
+                    </label>
+                }
+            </section>
+
+            <section>
+                <h3>Preco</h3>
                 <div class="range"><span></span></div>
                 <div class="price-inputs">
-                    <input value="R$ 0" />
-                    <input value="R$ 5.000" />
+                    <input
+                        type="number"
+                        name="minPrice"
+                        min="0"
+                        max="5000"
+                        aria-label="Preco minimo"
+                        [(ngModel)]="minPrice"
+                        (ngModelChange)="applyFilters()"
+                    />
+                    <input
+                        type="number"
+                        name="maxPrice"
+                        min="0"
+                        max="5000"
+                        aria-label="Preco maximo"
+                        [(ngModel)]="maxPrice"
+                        (ngModelChange)="applyFilters()"
+                    />
                 </div>
             </section>
 
             <section>
                 <h3>Marca</h3>
-                <label><input type="checkbox" /> Samsung</label>
-                <label><input type="checkbox" /> Apple</label>
-                <label><input type="checkbox" /> Xiaomi</label>
-                <label><input type="checkbox" /> Sony</label>
+                @for (marca of marcas; track marca) {
+                    <label>
+                        <input
+                            type="checkbox"
+                            [checked]="isBrandSelected(marca)"
+                            (change)="toggleBrand(marca, $event)"
+                        />
+                        {{ marca }}
+                    </label>
+                }
             </section>
 
             <section>
                 <h3>Disponibilidade</h3>
-                <label><input type="checkbox" /> Em estoque</label>
-                <label><input type="checkbox" /> Frete grátis</label>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="onlyInStock"
+                        [(ngModel)]="onlyInStock"
+                        (ngModelChange)="applyFilters()"
+                    />
+                    Em estoque
+                </label>
+                <label>
+                    <input
+                        type="checkbox"
+                        name="onlyFreeShipping"
+                        [(ngModel)]="onlyFreeShipping"
+                        (ngModelChange)="applyFilters()"
+                    />
+                    Frete gratis
+                </label>
             </section>
 
-            <button class="filter-button" type="button">APLICAR FILTROS</button>
+            <button class="filter-button" type="button" (click)="applyFilters()">
+                APLICAR FILTROS
+            </button>
         </aside>
 
-        <!-- Produtos renderizados a partir da lista do componente. -->
-        <section class="catalogo-produtos">
-            <div class="grid">
-                @for (produto of produtos; track $index) {
-                    <article class="card" routerLink="/detalhes-produto" tabindex="0">
-                        <img [src]="'/' + produto[0]" [alt]="produto[1]" />
-                        <h2>{{ produto[1] }}</h2>
-                        <strong>{{ produto[2] }}</strong>
-                        <button type="button" aria-label="Adicionar ao carrinho">🛒</button>
-                    </article>
-                }
-            </div>
+        <!-- Grade de produtos: usa apenas produtosFiltrados. -->
+        <section class="catalogo-produtos" aria-live="polite">
+            @if (produtosFiltrados.length > 0) {
+                <div class="grid">
+                    @for (produto of produtosPaginados; track produto.id) {
+                        <article
+                            class="card"
+                            [routerLink]="['/detalhes-produto', produto.id]"
+                            tabindex="0"
+                        >
+                            <img [src]="productImage(produto.image)" [alt]="produto.name" />
+                            <small class="product-meta">
+                                {{ categoryLabel(produto.category) }} | {{ produto.brand }}
+                            </small>
+                            <h2>{{ produto.name }}</h2>
+                            <p>{{ produto.description }}</p>
+                            <strong>{{ store.formatCurrency(produto.price) }}</strong>
+                            <span class="shipping-badge" [class.muted]="!produto.freeShipping">
+                                {{ produto.freeShipping ? 'Frete gratis' : 'Frete sob consulta' }}
+                            </span>
+                            <button
+                                type="button"
+                                aria-label="Adicionar ao carrinho"
+                                (click)="adicionarAoCarrinho($event, produto)"
+                            >
+                                &#128722;
+                            </button>
+                        </article>
+                    }
+                </div>
+            } @else {
+                <div class="no-results">
+                    <h2>Nenhum produto encontrado</h2>
+                    <p>Ajuste os filtros ou limpe tudo para ver a vitrine completa.</p>
+                    <button class="filter-button" type="button" (click)="clearFilters()">
+                        LIMPAR FILTROS
+                    </button>
+                </div>
+            }
 
-            <nav class="pagination" aria-label="Paginação">
-                <button>‹</button>
-                <button class="active">1</button>
-                <button>2</button>
-                <button>3</button>
-                <span>…</span>
-                <button>8</button>
-                <button>›</button>
-            </nav>
+            <!-- Paginacao visual mantida alinhada, pronta para API futura. -->
+            @if (produtosFiltrados.length > productsPerPage) {
+                <nav class="pagination" aria-label="Paginacao">
+                    <button
+                        type="button"
+                        aria-label="Pagina anterior"
+                        [disabled]="currentPage === 1"
+                        (click)="previousPage()"
+                    >
+                        &lt;
+                    </button>
+                    @if (showPaginationStartEllipsis) {
+                        <span>...</span>
+                    }
+                    @for (page of paginationPages; track page) {
+                        <button
+                            type="button"
+                            [class.active]="page === currentPage"
+                            [attr.aria-current]="page === currentPage ? 'page' : null"
+                            (click)="goToPage(page)"
+                        >
+                            {{ page }}
+                        </button>
+                    }
+                    @if (showPaginationEndEllipsis) {
+                        <span>...</span>
+                    }
+                    <button
+                        type="button"
+                        aria-label="Proxima pagina"
+                        [disabled]="currentPage === totalPages"
+                        (click)="nextPage()"
+                    >
+                        &gt;
+                    </button>
+                </nav>
+            }
         </section>
     </div>
 </main>

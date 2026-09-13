@@ -1,30 +1,32 @@
-/* Área branca que separa o cabeçalho do restante da página. */
 :host {
+    /* Faixa branca que separa o cabecalho do restante da pagina. */
     display: block;
     background: var(--color-surface);
+    border-bottom: 1px solid #e7e6ee;
 }
 
-/* Layout principal do header. */
 .header {
+    /* Grade horizontal do cabecalho, alinhada ao mesmo limite das paginas. */
+    position: relative;
     max-width: var(--content-width);
-    min-height: 72px;
+    min-height: 66px;
     margin: auto;
-    padding: 8px 28px;
+    padding: 8px 40px;
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 16px;
 }
 
-/* Links do header sem sublinhado padrão. */
 .logo,
+.category-trigger,
 .user,
 .cart {
     color: inherit;
     text-decoration: none;
 }
 
-/* Marca e imagem do logo. */
 .logo {
+    /* Area fixa da marca para a logo nao empurrar a busca. */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -35,9 +37,9 @@
 }
 
 .logo-icon {
-    width: 110px;
-    height: 50px;
-    flex: 0 0 110px;
+    width: 152px;
+    height: 48px;
+    flex: 0 0 152px;
     overflow: hidden;
 }
 
@@ -47,37 +49,153 @@
     object-fit: contain;
 }
 
-/* Botão de categorias, mantido para expansão futura. */
-.categorias {
-    min-height: 38px;
-    padding: 0 13px;
-    display: flex;
+.category-menu {
+    /* Wrapper relativo para posicionar o dropdown abaixo do botao. */
+    position: relative;
+    z-index: 20;
+}
+
+.category-trigger {
+    /* Botao de categoria com aparencia propria e area clicavel maior. */
+    height: 38px;
+    min-width: 148px;
+    padding: 0 12px;
+    display: inline-flex;
     align-items: center;
-    gap: 7px;
-    border: 1px solid #e5e5ed;
-    border-radius: 7px;
-    background: var(--color-surface-soft);
-    color: #25233d;
-    font-size: 12px;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #dedcf0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffffff, #f0efff);
+    color: #211f35;
+    box-shadow: 0 8px 18px rgba(48, 41, 149, 0.08);
+    font-size: 10px;
+    font-weight: 700;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.category-trigger:hover,
+.category-menu.open .category-trigger {
+    border-color: #594dea;
+    box-shadow: 0 10px 22px rgba(48, 41, 149, 0.16);
+    transform: translateY(-1px);
+}
+
+.category-icon {
+    width: 24px;
+    height: 24px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--color-brand);
+    color: #fff;
+    font-size: 13px;
+}
+
+.category-label {
+    display: grid;
+    gap: 1px;
+    text-align: left;
+    line-height: 1.05;
+}
+
+.category-label small {
+    color: #77738e;
+    font-size: 8px;
     font-weight: 700;
 }
 
-.arrow {
-    color: var(--color-text-soft);
-    font-size: 14px;
+.category-label b {
+    color: #211f35;
+    font-size: 10px;
 }
 
-/* Barra de busca central com ícone e botão de envio. */
+.category-dropdown {
+    /* Menu flutuante com atalhos de filtro do catalogo. */
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 240px;
+    padding: 8px;
+    display: grid;
+    gap: 6px;
+    border: 1px solid #e1dff0;
+    border-radius: var(--radius-md);
+    background: #fff;
+    box-shadow: 0 18px 34px rgba(34, 28, 107, 0.18);
+}
+
+.category-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 28px;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid #e1dff0;
+    border-left: 1px solid #e1dff0;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+.category-dropdown button {
+    min-height: 50px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: #25233b;
+    text-align: left;
+}
+
+.category-dropdown button:hover {
+    background: #f3f2ff;
+}
+
+.category-dropdown button > span {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #eceaff;
+    color: var(--color-brand);
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.category-dropdown b {
+    display: grid;
+    gap: 2px;
+    font-size: 11px;
+}
+
+.category-dropdown small {
+    color: #77738e;
+    font-size: 9px;
+    font-weight: 400;
+}
+
 .search-container {
-    flex: 1;
-    max-width: 610px;
-    height: 44px;
+    /* Busca absoluta para permanecer centralizada mesmo com atalhos nas laterais. */
+    position: absolute;
+    left: calc(50% + 24px);
+    width: min(42vw, 520px);
+    height: 36px;
     display: flex;
     align-items: center;
     overflow: hidden;
     border: 1.5px solid #5546da;
     border-radius: 999px;
     background: var(--color-surface);
+    transform: translateX(-50%);
     transition:
         border-color 0.22s ease,
         box-shadow 0.22s ease,
@@ -125,7 +243,7 @@
     background: transparent;
     color: var(--color-text);
     font-size: 11px;
-    line-height: 44px;
+    line-height: 36px;
 }
 
 .search-container input::placeholder {
@@ -133,8 +251,9 @@
 }
 
 .search-button {
-    width: 38px;
-    height: 38px;
+    /* Botao redondo que envia a busca. */
+    width: 31px;
+    height: 31px;
     margin-right: 2px;
     display: grid;
     place-items: center;
@@ -152,20 +271,24 @@
     height: 12px;
 }
 
-/* Área de conta e carrinho. */
 .user,
 .cart {
+    /* Atalhos laterais com icone e texto em duas linhas. */
     display: flex;
     align-items: center;
     gap: 7px;
     white-space: nowrap;
 }
 
+.user {
+    margin-left: auto;
+}
+
 .user-icon,
 .cart-icon {
     position: relative;
     color: var(--color-brand);
-    font-size: 17px;
+    font-size: 16px;
 }
 
 .user-text,
@@ -176,8 +299,11 @@
 
 .user-text small,
 .cart-text small {
+    max-width: 120px;
+    overflow: hidden;
     color: var(--color-text-soft);
     font-size: 9px;
+    text-overflow: ellipsis;
 }
 
 .user-text strong,
@@ -187,6 +313,7 @@
 }
 
 .cart-count {
+    /* Bolinha de quantidade no icone do carrinho. */
     position: absolute;
     top: -8px;
     right: -9px;
@@ -200,7 +327,6 @@
     font: 700 8px Arial;
 }
 
-/* Estados de hover e foco da busca. */
 .search-container:hover {
     border-color: #6c60e3;
     box-shadow: 0 4px 12px rgba(64, 53, 184, 0.14);
@@ -224,56 +350,56 @@
     transform: scale(1.06);
 }
 
-/* Ajustes para tablet. */
-@media (max-width: 900px) {
+@media (max-width: 980px) {
     .header {
-        gap: 12px;
-        padding: 12px 20px;
+        padding: 12px 24px;
     }
 
     .user-text,
-    .cart-text,
-    .categorias {
+    .cart-text {
         display: none;
+    }
+
+    .category-trigger {
+        min-width: 42px;
+        padding: 0 9px;
+    }
+
+    .category-label {
+        display: none;
+    }
+
+    .category-dropdown {
+        width: 220px;
+    }
+
+    .search-container {
+        left: calc(50% + 16px);
+        width: min(48vw, 460px);
     }
 }
 
-/* Ajustes para celular. */
-@media (max-width: 600px) {
+@media (max-width: 620px) {
     .header {
         min-height: auto;
         flex-wrap: wrap;
+        padding: 12px 20px;
     }
 
-    .logo {
-        font-size: 16px;
+    .logo-icon {
+        width: 136px;
+        flex-basis: 136px;
     }
 
     .search-container {
+        position: static;
         order: 3;
+        width: 100%;
         flex-basis: 100%;
-        max-width: none;
+        transform: none;
     }
 
     .cart {
-        margin-left: auto;
-    }
-}
-
-/* No desktop a busca permanece centralizada visualmente. */
-@media (min-width: 901px) {
-    .header {
-        position: relative;
-    }
-
-    .search-container {
-        position: absolute;
-        left: 50%;
-        width: min(48vw, 610px);
-        transform: translateX(-50%);
-    }
-
-    .user {
         margin-left: auto;
     }
 }

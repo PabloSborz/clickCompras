@@ -1,18 +1,19 @@
-/* Base da tela de catálogo. */
 :host {
+    /* Fundo geral da tela de catalogo. */
     display: block;
     background: var(--color-page);
     color: #27243a;
 }
 
 .catalogo-page {
+    /* Alinha catalogo com header, carrinho e checkout. */
     max-width: var(--content-width);
     margin: auto;
-    padding: 19px 28px 48px;
+    padding: 24px 40px 56px;
 }
 
-/* Caminho de navegação no topo da página. */
 .breadcrumbs {
+    /* Caminho pequeno no topo da pagina. */
     color: var(--color-muted);
     font-size: 10px;
 }
@@ -21,60 +22,90 @@
     margin: 0 5px;
 }
 
-.catalogo-page h1 {
-    margin: 10px 0 4px;
+.catalogo-heading {
+    /* Linha principal com titulo, contador e ordenacao. */
+    margin: 12px 0 18px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.catalogo-heading h1 {
+    margin: 0;
+    color: #171724;
     font-size: 22px;
 }
 
-/* Linha com total de resultados e ordenação. */
 .resultados {
-    margin: 0 0 18px;
-    display: flex;
-    justify-content: space-between;
+    margin: 5px 0 0;
     color: #686477;
     font-size: 10px;
 }
 
-.resultados span {
+.sort-control {
+    /* Select de ordenacao dos produtos filtrados. */
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: var(--color-text-soft);
+    font-size: 10px;
+    font-weight: 700;
 }
 
-.resultados b {
+.sort-control select {
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #dedde7;
+    border-radius: var(--radius-sm);
+    background: #fff;
     color: #312a81;
+    font-size: 10px;
+    font-weight: 800;
 }
 
-/* Grade principal com filtros ao lado dos produtos. */
 .catalogo-layout {
+    /* Duas colunas no desktop: filtros fixos e grade flexivel. */
     display: grid;
-    grid-template-columns: 210px 1fr;
-    gap: 18px;
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 20px;
 }
 
-/* Painel lateral de filtros. */
 .filtros {
+    /* Painel lateral onde cada controle filtra a grade. */
     align-self: start;
-    padding: 15px;
+    padding: 16px;
     border: 1px solid var(--color-border);
-    border-radius: 7px;
+    border-radius: var(--radius-md);
     background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
 }
 
 .filter-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .filter-title h2 {
     margin: 0;
-    font-size: 13px;
+    font-size: 14px;
+}
+
+.filter-title span {
+    display: block;
+    margin-top: 3px;
+    color: var(--color-text-soft);
+    font-size: 9px;
 }
 
 .filter-title button {
     border: 0;
     background: transparent;
     color: #5144c8;
-    font-size: 8px;
+    font-size: 9px;
+    font-weight: 800;
 }
 
 .filtros section {
@@ -88,19 +119,43 @@
 }
 
 .filtros label {
-    display: block;
-    margin: 7px 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 8px 0;
     color: #686477;
-    font-size: 9px;
+    font-size: 10px;
 }
 
 .filtros input[type='checkbox'] {
+    width: 13px;
+    height: 13px;
     accent-color: #4a3ec5;
-    vertical-align: middle;
 }
 
-/* Controle visual de faixa de preço. */
+.filter-search {
+    /* Busca local do painel de filtros. */
+    width: 100%;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #dedde7;
+    border-radius: var(--radius-sm);
+    outline: 0;
+    background: #f7f7fa;
+    color: var(--color-text);
+    font-size: 10px;
+}
+
+.filter-search:focus,
+.price-inputs input:focus,
+.sort-control select:focus {
+    border-color: var(--color-brand);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(48, 41, 149, 0.09);
+}
+
 .range {
+    /* Trilha visual da faixa de preco. */
     height: 3px;
     margin: 15px 3px;
     border-radius: 4px;
@@ -117,22 +172,23 @@
 
 .price-inputs {
     display: flex;
-    gap: 5px;
+    gap: 7px;
 }
 
 .price-inputs input {
     width: 50%;
-    padding: 6px 3px;
+    height: 30px;
+    padding: 0 7px;
     border: 1px solid #dedde7;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     color: var(--color-text-soft);
-    font-size: 8px;
+    font-size: 9px;
 }
 
 .filter-button {
     width: 100%;
+    min-height: 34px;
     margin-top: 14px;
-    padding: 9px;
     border: 0;
     border-radius: var(--radius-sm);
     background: var(--color-accent);
@@ -141,58 +197,129 @@
     font-weight: 800;
 }
 
-/* Lista de produtos do catálogo. */
 .grid {
+    /* Grade responsiva de cards de produto. */
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
 }
 
 .card {
+    /* Card clicavel que abre detalhes; o botao interno adiciona ao carrinho. */
     position: relative;
-    min-height: 202px;
-    padding: 9px;
+    min-height: 248px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--color-border);
-    border-radius: 7px;
+    border-radius: var(--radius-md);
     background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
 }
 
 .card img {
     width: 100%;
-    height: 103px;
+    height: 104px;
     object-fit: contain;
 }
 
+.product-meta {
+    margin-top: 8px;
+    color: #6d68a8;
+    font-size: 8px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
 .card h2 {
-    min-height: 29px;
-    margin: 7px 0 5px;
-    font-size: 9px;
-    font-weight: 600;
+    min-height: 31px;
+    margin: 6px 0 4px;
+    color: #252331;
+    font-size: 10px;
+    font-weight: 800;
     line-height: 1.35;
 }
 
+.card p {
+    min-height: 30px;
+    margin: 0 0 8px;
+    color: #77738e;
+    font-size: 9px;
+    line-height: 1.45;
+}
+
 .card strong {
+    margin-top: auto;
     color: var(--color-accent);
-    font-size: 11px;
+    font-size: 13px;
+}
+
+.shipping-badge {
+    width: fit-content;
+    margin-top: 8px;
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: #e0faf1;
+    color: #147b59;
+    font-size: 8px;
+    font-weight: 800;
+}
+
+.shipping-badge.muted {
+    background: #f0f1f5;
+    color: #77738e;
 }
 
 .card button {
     position: absolute;
-    right: 8px;
-    bottom: 8px;
-    width: 20px;
-    height: 20px;
+    right: 12px;
+    bottom: 12px;
+    width: 26px;
+    height: 26px;
     padding: 0;
     border: 0;
     border-radius: 50%;
     background: var(--color-brand-strong);
     color: #fff;
-    font-size: 9px;
+    font-size: 11px;
 }
 
-/* Paginação visual do catálogo. */
+.no-results {
+    /* Estado vazio quando filtros nao encontram produtos. */
+    padding: 52px 24px;
+    border: 1px dashed #d6d3e4;
+    border-radius: var(--radius-md);
+    background: #fff;
+    text-align: center;
+}
+
+.no-results h2 {
+    margin: 0 0 8px;
+    color: #171724;
+    font-size: 18px;
+}
+
+.no-results p {
+    margin: 0 0 18px;
+    color: var(--color-text-soft);
+    font-size: 11px;
+}
+
+.no-results .filter-button {
+    max-width: 180px;
+}
+
 .pagination {
-    margin-top: 26px;
+    /* Navegacao funcional entre paginas de produtos. */
+    margin-top: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -200,13 +327,17 @@
 }
 
 .pagination button {
-    width: 23px;
-    height: 23px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #e0dfea;
     border-radius: 4px;
     background: #fff;
     color: #514d61;
     font-size: 10px;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .pagination .active {
@@ -215,37 +346,66 @@
     color: #fff;
 }
 
-/* Ajustes para tablet. */
+.pagination button:not(:disabled):hover {
+    border-color: #4a3ec5;
+    color: #4a3ec5;
+    transform: translateY(-2px);
+}
+
+.pagination button.active:hover {
+    color: #fff;
+}
+
+.pagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.pagination span {
+    color: #514d61;
+    font-size: 12px;
+}
+
+@media (max-width: 1040px) {
+    .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 900px) {
     .catalogo-layout {
         grid-template-columns: 1fr;
     }
 
     .filtros {
-        display: none;
+        display: block;
     }
 
     .grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-/* Ajustes para celular. */
 @media (max-width: 600px) {
     .catalogo-page {
-        padding: 16px 20px 35px;
+        padding: 18px 20px 42px;
     }
 
-    .resultados span {
-        display: none;
+    .catalogo-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .sort-control {
+        align-items: stretch;
+        flex-direction: column;
     }
 
     .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 9px;
+        grid-template-columns: 1fr;
     }
 
     .card {
-        min-height: 190px;
+        min-height: 236px;
     }
 }

@@ -1,1 +1,82 @@
-<p>login works!</p>
+<app-top-bar></app-top-bar>
+<app-header></app-header>
+
+<main class="login-page">
+    <!-- Card central de autenticacao do cliente. -->
+    <section class="login-card" aria-labelledby="login-title">
+        <h1 id="login-title">Entrar na sua conta</h1>
+        <p>Aproveite suas ofertas personalizadas e frete expresso</p>
+
+        <!-- Formulario principal de e-mail e senha. -->
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm.valid)" novalidate>
+            <div class="field">
+                <label for="email">E-mail</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="exemplo@email.com"
+                    [(ngModel)]="email"
+                    required
+                    email
+                />
+            </div>
+
+            <div class="field">
+                <label for="password">Senha</label>
+                <div class="password-field">
+                    <input
+                        id="password"
+                        name="password"
+                        [type]="showPassword() ? 'text' : 'password'"
+                        placeholder="Digite sua senha"
+                        [(ngModel)]="password"
+                        required
+                        minlength="4"
+                    />
+                    <button
+                        type="button"
+                        (click)="togglePassword()"
+                        aria-label="Mostrar ou ocultar senha"
+                    >
+                        {{ showPassword() ? 'Ocultar' : 'Ver' }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="login-row">
+                <label>
+                    <input type="checkbox" name="remember" [(ngModel)]="remember" />
+                    Lembrar
+                </label>
+                <a href="#recuperar">Esqueceu a senha?</a>
+            </div>
+
+            @if (submitted && loginForm.invalid) {
+                <p class="form-error">Informe um e-mail valido e uma senha.</p>
+            }
+
+            <button class="primary-action login-submit" type="submit">ENTRAR</button>
+        </form>
+
+        <!-- Separador visual entre login comum e login social. -->
+        <div class="divider"><span>ou</span></div>
+
+        <!-- Botoes de login social simulados. -->
+        <button class="social-login" type="button" (click)="socialLogin('google')">
+            <span aria-hidden="true">G</span>
+            Entrar com Google
+        </button>
+        <button class="social-login" type="button" (click)="socialLogin('facebook')">
+            <span aria-hidden="true">f</span>
+            Entrar com Facebook
+        </button>
+
+        <p class="register-copy">Nao tem conta? <a href="#cadastro">Cadastre-se</a></p>
+    </section>
+</main>
+
+<!-- Secoes compartilhadas de confianca, newsletter e rodape. -->
+<app-trust-strip></app-trust-strip>
+<app-newsletter></app-newsletter>
+<app-footer></app-footer>

@@ -2,84 +2,83 @@
 <app-header></app-header>
 
 <main class="detalhe-page">
-    <!-- Caminho de navegação até o produto. -->
     <nav class="breadcrumbs">
-        <a routerLink="/">Início</a>
-        <span>›</span>
-        <a routerLink="/catalogo">Eletrônicos</a>
-        <span>›</span>
-        <span>Fone de ouvido</span>
+        <a routerLink="/">Inicio</a>
+        <span>&gt;</span>
+        <a routerLink="/catalogo">Eletronicos</a>
+        <span>&gt;</span>
+        <span>{{ produto.name }}</span>
     </nav>
 
-    <!-- Galeria e área de compra. -->
     <section class="produto-principal">
         <div class="galeria">
             <div class="imagem-principal">
-                <img src="/controle2.png" alt="Controle gamer sem fio" />
+                <img [src]="productImage(produto.image)" [alt]="produto.name" />
             </div>
 
             <div class="miniaturas">
-                <button class="active">
-                    <img src="/controle2.png" alt="" />
+                <button class="active" type="button">
+                    <img [src]="productImage(produto.image)" alt="" />
                 </button>
-                <button>
+                <button type="button">
                     <img src="/celular2.png" alt="" />
                 </button>
-                <button>
+                <button type="button">
                     <img src="/notebook2.png" alt="" />
                 </button>
             </div>
         </div>
 
         <div class="compra">
-            <h1>Fone de Ouvido Wireless Premium ClickBass Pro</h1>
-            <strong class="preco">R$ 249,90</strong>
+            <h1>{{ produto.name }}</h1>
+            <strong class="preco">{{ store.formatCurrency(produto.price) }}</strong>
             <p class="parcelamento">ou 12x de R$ 24,99 sem juros</p>
 
             <div class="quantidade">
                 <span>Quantidade</span>
                 <div>
-                    <button>−</button>
-                    <b>1</b>
-                    <button>+</button>
+                    <button type="button" (click)="decrease()" [disabled]="quantity === 1">
+                        -
+                    </button>
+                    <b>{{ quantity }}</b>
+                    <button type="button" (click)="increase()">+</button>
                 </div>
             </div>
 
             <div class="acoes">
-                <button class="comprar">COMPRAR AGORA</button>
-                <button class="carrinho">🛒 ADICIONAR AO CARRINHO</button>
+                <button class="comprar" type="button" (click)="buyNow()">COMPRAR AGORA</button>
+                <button class="carrinho" type="button" (click)="addToCart()">
+                    &#128722; ADICIONAR AO CARRINHO
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- Descrição e informações adicionais. -->
     <section class="descricao">
         <div class="tabs">
-            <button class="selected">Descrição</button>
-            <button>Especificações</button>
+            <button class="selected" type="button">Descricao</button>
+            <button type="button">Especificacoes</button>
         </div>
 
-        <h2>Fone de ouvido Premium com bateria de longa duração</h2>
-        <p>
-            Ouça suas músicas, chamadas e podcasts com som de alta qualidade. O ClickBass Pro tem
-            design confortável, conexão sem fio estável e bateria para acompanhar sua rotina.
-        </p>
-        <p>
-            Leve, moderno e compatível com seus dispositivos favoritos, é a escolha ideal para
-            trabalho, estudo, lazer e viagens.
-        </p>
+        <h2>{{ produto.name }}</h2>
+        <p>{{ produto.description }}</p>
     </section>
 
-    <!-- Vitrine de produtos relacionados. -->
     <section class="relacionados">
         <h2>Produtos relacionados</h2>
         <div class="related-grid">
-            @for (produto of relacionados; track produto[1]) {
+            @for (produtoRelacionado of relacionados; track produtoRelacionado[1]) {
                 <article>
-                    <img [src]="'/' + produto[0]" [alt]="produto[1]" />
-                    <h3>{{ produto[1] }}</h3>
-                    <strong>{{ produto[2] }}</strong>
-                    <button>🛒</button>
+                    <img [src]="'/' + produtoRelacionado[0]" [alt]="produtoRelacionado[1]" />
+                    <h3>{{ produtoRelacionado[1] }}</h3>
+                    <strong>{{ store.formatCurrency(produtoRelacionado[2]) }}</strong>
+                    <button
+                        type="button"
+                        aria-label="Adicionar ao carrinho"
+                        (click)="addRelatedToCart(produtoRelacionado)"
+                    >
+                        &#128722;
+                    </button>
                 </article>
             }
         </div>

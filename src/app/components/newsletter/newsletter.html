@@ -1,16 +1,34 @@
-<!-- Chamada para cadastro de e-mail. -->
+<!-- Bloco final para capturar e-mails de ofertas. -->
 <section class="newsletter">
-    <div class="newsletter-brand">
-        <img src="/logoSemfundo.png" alt="Click Compras" />
-        <div>
-            <h2>Receba ofertas exclusivas!</h2>
-            <p>Cadastre seu e-mail e fique por dentro das novidades.</p>
-        </div>
+    <div class="newsletter-copy">
+        <h2>Receba ofertas exclusivas!</h2>
+        <p>
+            Cadastre seu e-mail e fique por dentro dos melhores cupons e lan&ccedil;amentos do Click
+            Compras.
+        </p>
     </div>
 
-    <!-- Formulário visual da newsletter. -->
-    <form>
-        <input type="email" placeholder="Digite seu e-mail" aria-label="Seu e-mail" />
+    <!-- Formulario simples com validacao no componente TypeScript. -->
+    <form (ngSubmit)="subscribe()" novalidate>
+        <input
+            type="email"
+            name="newsletterEmail"
+            placeholder="Seu melhor e-mail..."
+            aria-label="Seu melhor e-mail"
+            [(ngModel)]="email"
+        />
         <button type="submit">CADASTRAR</button>
     </form>
+
+    <!-- Atalhos visuais para redes sociais. -->
+    <nav class="social-links" aria-label="Redes sociais">
+        <a href="#facebook">f</a>
+        <a href="#instagram">i</a>
+        <a href="#twitter">t</a>
+        <a href="#youtube">y</a>
+    </nav>
+
+    @if (message) {
+        <p class="newsletter-message" aria-live="polite">{{ message }}</p>
+    }
 </section>
