@@ -1,6 +1,6 @@
 .top-bar {
     /* Barra fina acima do header principal. */
-    background: var(--color-brand-dark);
+    background: linear-gradient(90deg, #171342, #292365 52%, #171342);
     color: #fff;
     font-size: 10px;
 }

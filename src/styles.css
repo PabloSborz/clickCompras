@@ -7,8 +7,8 @@
     --color-brand-footer: #17134a;
     --color-accent: #ff593f;
     --color-success: #28c993;
-    --color-page: #f7f7fa;
-    --color-page-soft: #f5f5f7;
+    --color-page: #f6f6fb;
+    --color-page-soft: #f4f3fa;
     --color-surface: #fff;
     --color-surface-soft: #f8f8fb;
     --color-card: #f2f2f5;
@@ -19,10 +19,10 @@
     --color-muted: #8d8a9a;
     --content-width: 1280px;
     --section-pad: max(7%, calc((100% - 1160px) / 2));
-    --radius-sm: 5px;
-    --radius-md: 8px;
-    --shadow-soft: 0 4px 12px rgba(34, 28, 107, 0.05);
-    --shadow-hover: 0 12px 22px rgba(34, 28, 107, 0.16);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --shadow-soft: 0 8px 24px rgba(34, 28, 107, 0.07);
+    --shadow-hover: 0 18px 38px rgba(34, 28, 107, 0.16);
 }
 
 * {
@@ -40,9 +40,33 @@ body {
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--color-page-soft);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 12% 0%, rgba(80, 67, 210, 0.08), transparent 28rem),
+        var(--color-page-soft);
     color: #222;
+}
+
+/* Evita que textos longos e controles provoquem rolagem lateral no celular. */
+p,
+h1,
+h2,
+h3,
+a,
+button,
+label,
+strong,
+small {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    button,
+    select,
+    input[type='button'],
+    input[type='submit'] {
+        min-height: 44px;
+    }
 }
 
 img {
@@ -66,6 +90,24 @@ textarea {
 button {
     /* Mantem cursor de clique nos botoes. */
     cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+button:not(:disabled):active {
+    transform: translateY(1px) scale(0.98);
+}
+
+:focus-visible {
+    outline: 3px solid rgba(255, 89, 63, 0.35);
+    outline-offset: 3px;
+}
+
+::selection {
+    background: rgba(74, 62, 197, 0.2);
+    color: var(--color-brand-dark);
 }
 
 .purchase-page {
@@ -74,7 +116,7 @@ button {
     min-height: 520px;
     margin: auto;
     padding: 24px 40px 70px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.82);
     color: var(--color-text);
 }
 

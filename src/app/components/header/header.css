@@ -1,7 +1,11 @@
 :host {
     /* Faixa branca que separa o cabecalho do restante da pagina. */
     display: block;
-    background: var(--color-surface);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid #e7e6ee;
 }
 
@@ -192,9 +196,10 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    border: 1.5px solid #5546da;
+    border: 1.5px solid #6a5ee2;
     border-radius: 999px;
-    background: var(--color-surface);
+    background: #fafaff;
+    box-shadow: 0 5px 18px rgba(48, 41, 149, 0.09);
     transform: translateX(-50%);
     transition:
         border-color 0.22s ease,
@@ -259,7 +264,8 @@
     place-items: center;
     border: 0;
     border-radius: 50%;
-    background: #4539c2;
+    background: linear-gradient(135deg, #5a4de0, #332795);
+    box-shadow: 0 4px 10px rgba(48, 41, 149, 0.28);
     color: #fff;
     transition:
         transform 0.22s ease,
@@ -384,6 +390,7 @@
         min-height: auto;
         flex-wrap: wrap;
         padding: 12px 20px;
+        row-gap: 10px;
     }
 
     .logo-icon {
@@ -396,10 +403,69 @@
         order: 3;
         width: 100%;
         flex-basis: 100%;
+        height: 44px;
+        margin: 0 auto;
+        align-self: center;
         transform: none;
+    }
+
+    .search-container input {
+        line-height: 44px;
+    }
+
+    .search-button {
+        width: 38px;
+        height: 38px;
+        min-height: 38px;
+        flex: 0 0 38px;
+        margin-right: 2px;
     }
 
     .cart {
         margin-left: auto;
+    }
+
+    .category-dropdown {
+        position: fixed;
+        top: 68px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        max-height: calc(100dvh - 82px);
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 420px) {
+    .header {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .logo-icon {
+        width: 108px;
+        height: 42px;
+        flex-basis: 108px;
+    }
+
+    .category-trigger {
+        width: 38px;
+        min-width: 38px;
+        height: 38px;
+        padding: 0;
+    }
+
+    .user,
+    .cart {
+        min-width: 34px;
+    }
+
+    .search-input {
+        font-size: 16px;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
     }
 }

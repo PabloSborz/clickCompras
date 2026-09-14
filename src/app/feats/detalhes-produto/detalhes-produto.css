@@ -277,3 +277,17 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+@media (max-width: 480px) {
+    .detalhe-page {
+        padding-inline: 14px;
+    }
+
+    .imagem-principal {
+        height: 230px;
+    }
+
+    .related-grid {
+        grid-template-columns: 1fr;
+    }
+}

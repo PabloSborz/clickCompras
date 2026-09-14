@@ -1,11 +1,14 @@
 footer {
     /* Rodape escuro alinhado ao mesmo respiro lateral do site. */
     margin-bottom: 0;
-    padding: 18px var(--section-pad);
+    padding: 24px var(--section-pad);
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    background: var(--color-brand-footer);
+    border-top: 3px solid rgba(255, 89, 63, 0.75);
+    background:
+        radial-gradient(circle at 80% 0%, rgba(92, 76, 224, 0.24), transparent 24rem),
+        var(--color-brand-footer);
     color: #a8a5ce;
     font-size: 10px;
 }

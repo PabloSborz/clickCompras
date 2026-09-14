@@ -206,3 +206,21 @@
         flex-direction: column;
     }
 }
+
+@media (max-width: 480px) {
+    .cart-layout {
+        gap: 16px;
+    }
+
+    .cart-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .product-info {
+        grid-template-columns: 48px minmax(0, 1fr);
+    }
+
+    .cart-summary {
+        padding: 18px;
+    }
+}

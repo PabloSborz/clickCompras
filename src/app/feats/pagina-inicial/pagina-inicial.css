@@ -6,7 +6,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 36px;
-    background: linear-gradient(115deg, #3724cf, #412fc7 55%, #29228e);
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 78% 28%, rgba(255, 255, 255, 0.2), transparent 17rem),
+        linear-gradient(120deg, #261b99, #4937d1 55%, #211b77);
     color: #fff;
 }
 
@@ -275,7 +279,6 @@
     color: #84818d;
 }
 
-/* Limite visual compartilhado pelas seções centrais. */
 .content-section {
     max-width: 1240px;
     margin: auto;
@@ -293,7 +296,10 @@
     margin-top: 14px;
     border: 1px solid #e7e4f6;
     border-radius: var(--radius-md);
-    background: linear-gradient(135deg, #fbfaff, #f4f2ff);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(91, 76, 222, 0.1), transparent 18rem),
+        linear-gradient(135deg, #fdfcff, #f4f2ff);
+    box-shadow: var(--shadow-soft);
 }
 
 .categories-section > h2 {
@@ -442,20 +448,33 @@
     background: #fff;
     box-shadow: var(--shadow-soft);
     transition:
+        border-color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
+    overflow: hidden;
 }
 
 .product-card:hover {
+    border-color: rgba(74, 62, 197, 0.3);
     box-shadow: var(--shadow-hover);
-    transform: translateY(-5px);
+    transform: translateY(-7px);
 }
 
 .product-card > img {
     width: 100%;
     height: 112px;
     margin: 0 auto;
+    display: block;
+    padding: 6px;
     object-fit: contain;
+    object-position: center;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(145deg, #fafaff, #f0eff9);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover > img {
+    transform: scale(1.035);
 }
 
 .product-card h3 {
@@ -490,9 +509,10 @@
     height: 25px;
     border: 0;
     border-radius: 50%;
-    background: #2d267b;
+    background: linear-gradient(135deg, #4d40c9, #2d267b);
     color: #fff;
     font-size: 11px;
+    box-shadow: 0 5px 12px rgba(45, 38, 123, 0.25);
 }
 
 /* Animação dos cards do hero. */
@@ -644,10 +664,11 @@
     }
 
     .hero-products {
+        width: min(280px, 100%);
+        flex-basis: 200px;
         align-self: center;
         margin-bottom: -20px;
-        transform: scale(0.88);
-        transform-origin: center top;
+        transform: none;
     }
 
     .hero-card {
@@ -675,6 +696,51 @@
 
     .destaque {
         padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-inline: 16px;
+    }
+
+    .hero h1 {
+        font-size: clamp(27px, 9vw, 32px);
+    }
+
+    .hero-products {
+        height: 190px;
+    }
+
+    .hero-card.speaker,
+    .hero-card.phone,
+    .hero-card.headset {
+        width: 116px;
+        height: 116px;
+    }
+
+    .phone {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .content-section,
+    .destaque {
+        padding-inline: 16px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 12px;
+        flex-direction: column;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .product-card > img {
+        height: 180px;
     }
 }
 

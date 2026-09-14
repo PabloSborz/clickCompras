@@ -1,7 +1,9 @@
 :host {
     /* Fundo geral da tela de catalogo. */
     display: block;
-    background: var(--color-page);
+    background:
+        radial-gradient(circle at 90% 6%, rgba(88, 74, 213, 0.08), transparent 26rem),
+        var(--color-page);
     color: #27243a;
 }
 
@@ -34,7 +36,8 @@
 .catalogo-heading h1 {
     margin: 0;
     color: #171724;
-    font-size: 22px;
+    font-size: 26px;
+    letter-spacing: -0.03em;
 }
 
 .resultados {
@@ -62,6 +65,7 @@
     color: #312a81;
     font-size: 10px;
     font-weight: 800;
+    cursor: pointer;
 }
 
 .catalogo-layout {
@@ -79,6 +83,7 @@
     border-radius: var(--radius-md);
     background: var(--color-surface);
     box-shadow: var(--shadow-soft);
+    border-top: 3px solid var(--color-brand);
 }
 
 .filter-title {
@@ -191,10 +196,17 @@
     margin-top: 14px;
     border: 0;
     border-radius: var(--radius-sm);
-    background: var(--color-accent);
+    background: linear-gradient(135deg, #ff6d55, var(--color-accent));
     color: #fff;
     font-size: 9px;
     font-weight: 800;
+    box-shadow: 0 7px 16px rgba(255, 89, 63, 0.22);
+}
+
+.filter-button:hover {
+    filter: brightness(1.04);
+    box-shadow: 0 10px 22px rgba(255, 89, 63, 0.3);
+    transform: translateY(-2px);
 }
 
 .grid {
@@ -216,19 +228,33 @@
     background: var(--color-surface);
     box-shadow: var(--shadow-soft);
     transition:
+        border-color 0.2s ease,
         box-shadow 0.2s ease,
         transform 0.2s ease;
+    overflow: hidden;
 }
 
 .card:hover {
+    border-color: rgba(74, 62, 197, 0.3);
     box-shadow: var(--shadow-hover);
-    transform: translateY(-3px);
+    transform: translateY(-6px);
 }
 
 .card img {
     width: 100%;
     height: 104px;
+    display: block;
+    margin-inline: auto;
+    padding: 6px;
     object-fit: contain;
+    object-position: center;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(145deg, #fafaff, #f0eff9);
+    transition: transform 0.3s ease;
+}
+
+.card:hover img {
+    transform: scale(1.035);
 }
 
 .product-meta {
@@ -287,9 +313,15 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--color-brand-strong);
+    background: linear-gradient(135deg, #4d40c9, var(--color-brand-strong));
     color: #fff;
     font-size: 11px;
+    box-shadow: 0 5px 12px rgba(46, 39, 125, 0.25);
+}
+
+.card button:hover {
+    filter: brightness(1.12);
+    transform: scale(1.08);
 }
 
 .no-results {
@@ -401,11 +433,38 @@
         flex-direction: column;
     }
 
+    .sort-control select,
+    .filter-search,
+    .price-inputs input {
+        width: 100%;
+        min-height: 44px;
+        font-size: 16px;
+    }
+
     .grid {
         grid-template-columns: 1fr;
     }
 
     .card {
         min-height: 236px;
+    }
+
+    .card img {
+        height: 180px;
+    }
+}
+
+@media (max-width: 420px) {
+    .catalogo-page {
+        padding-inline: 14px;
+    }
+
+    .filtros,
+    .card {
+        padding: 14px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
     }
 }
